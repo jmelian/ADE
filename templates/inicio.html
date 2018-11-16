@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+ADE Inicio
+{% endblock %}
+
+{% block content %}
+
+<h4>pagina de inicio ADE</h4>
+<div class="container-fluid">
+{% if VEHICULO %}
+    <h3>Información del vehículo:</h3>
+    <form>
+        {% for key, value in VEHICULO.items %}
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">{{key}}</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class="form-control" value={{value}}>
+                </div>
+            </div>
+        {% endfor %}
+    </form>
+ {% else %}
+<h1>No hay datos del vehículo</h1>
+{% endif %}
+</div>
+<hr/>
+<div class="container-fluid">
+{% if PROPIETARIOS %}
+    <h3>Información de los propietarios:</h3>
+    <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">E-mail</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for propietario in PROPIETARIOS %}
+            <tr>
+            {% for campo, valor in propietario.items %}
+                {% if campo == 'fields' %}
+                    {% for key , value in valor.items %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+ {% else %}
+<h1>No hay datos del propietario</h1>
+{% endif %}
+</div>
+{% endblock %}
+

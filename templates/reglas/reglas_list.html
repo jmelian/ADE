@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+{% if object_list %}
+    <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Contenido</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Fecha de creación</th>
+                <th scope="col">Fecha de modificación</th>
+                <th scope="col">Usuarios asignados</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for regla in object_list %}
+                    <tr>
+                        <th scope="row">{{ regla.id }}</th>
+                        <td>{{ regla.contenido }}</td>
+                        <td>{{ regla.descripcion }}</td>
+                        <td>{{ regla.fechaCreacion }}</td>
+                        <td>{{ regla.fechaModificacion }}</td>
+                        <td>{{ regla.persona.nombre }} {{ regla.persona.apellidos }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{% url 'reglas:reglas_edit' regla.id %}">Editar</a>
+                            <a class="btn btn-danger" href="{% url 'reglas:reglas_delete' regla.id %}">Borrar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h1>No hay registros de reglas</h1>
+{% endif %}
+
+{% endblock %}

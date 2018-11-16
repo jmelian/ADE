@@ -1,0 +1,52 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+{% if object_list %}
+    <table class="table table-bordered table-sm">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Edad</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Serial</th>
+                <th scope="col">Fecha de creación</th>
+                <th scope="col">Fecha de modificación</th>
+                <th scope="col">Reglas asignados</th>
+                <th scope="col">Administrador</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in object_list %}
+                <tr>
+                    <th scope="row">{{ usuario.id }}</th>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.apellidos }}</td>
+                    <td>{{ usuario.edad }}</td>
+                    <td>{{ usuario.telefono }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.serial }}</td>
+                    <td>{{ usuario.fechaCreacion }}</td>
+                    <td>{{ usuario.fechaModificacion }}</td>
+                    <td>{{ usuario.reglas }}</td>
+                    <td>{% if usuario.admin %}Sí{% else %}No{% endif%}</td>
+
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'usuarios:usuarios_edit' usuario.id %}">Editar</a>
+                        <a class="btn btn-danger" href="#">Borrar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+
+        {% else %}
+            <h1>No hay registros de usuarios</h1>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock %}

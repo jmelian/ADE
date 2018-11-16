@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <h3>Desea eliminar la regla de {{ object.descripcion}}?</h3>
+
+    <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+    <a class="btn btn-default" href="{% url 'reglas:reglas_list' %}">Cancelar</a>
+</form>
+{% endblock %}

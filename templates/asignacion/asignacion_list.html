@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>No. Asignacion</td>
+			<td>Adoptante</td>
+			<td>No. Reglas</td>
+			<td>Razones</td>
+			<td>Acciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% if object_list %}
+		{% for asignacion in object_list %}
+		<tr>
+			<td>{{ asignacion.id }}</td>
+			<td>{{ asignacion.persona.nombre }} {{asignacion.persona.apellidos}}</td>
+			<td>{{ asignacion.numero_reglas }}</td>
+			<td>{{ asignacion.razones }}</td>
+
+			<td>
+				<a class="btn btn-primary" href="{% url 'asignacion:asignacion_edit' asignacion.id %}">Editar</a>
+				<a class="btn btn-danger" href="{% url 'asignacion:asignacion_borrar' asignacion.id %}">Eliminar</a>
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %}
+		<h1>No hay registros de asignaciones</h1>
+		{% endif %}
+	</tbody>
+</table>
+
+{% endblock%}
