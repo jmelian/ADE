@@ -9,6 +9,7 @@ from apps.usuarios.models import Usuarios
 import sys
 import json
 from django.core import serializers
+from django.conf import settings
 import configparser
 
 # Create your views here.
@@ -70,9 +71,17 @@ class UsuariosDelete(DeleteView):
     success_url = reverse_lazy('usuarios:usuarios_list')
 
 
-class UsuariosAlta(CreateView):
-    model = Usuarios
-    form_class = UsuariosForm
-    template_name = 'usuarios/usuarios_form.html'
-    success_url = reverse_lazy('usuarios:usuarios_list')
 
+def UsuariosAlta1(request):
+    contexto = {'contenido': 'True'}
+    return render(request, "usuarios/usuarios_alta1.html")#, contexto)
+
+
+def UsuariosAlta2(request):
+    #leer unidad USB
+    f = open(settings.USB_PATH, 'r')
+    contenido=f.read()
+    f.close()
+    contexto = {'contenido': contenido}
+    print(contexto)
+    return render(request, "usuarios/usuarios_alta2.html", contexto)

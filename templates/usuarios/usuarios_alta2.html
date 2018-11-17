@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+{% if contenido %}
+<h3>Contenido del fichero: {{ contenido }}</h3>
+{% else %}
+<h3>Fichero vacio</h3>
+{% endif %}
+{% endblock %}
+
