@@ -11,6 +11,7 @@ import json
 from django.core import serializers
 from django.conf import settings
 import configparser
+import usb
 
 # Create your views here.
 
@@ -73,15 +74,28 @@ class UsuariosDelete(DeleteView):
 
 
 def UsuariosAlta1(request):
-    contexto = {'contenido': 'True'}
-    return render(request, "usuarios/usuarios_alta1.html")#, contexto)
+    return render(request, "usuarios/usuarios_alta1.html")
+
+
+def getFileContent(file):
+    f = open(file, 'r')
+    content = f.read()
+    f.close()
+    return content
+
+def getUSBSerial():
+    dev = usb.core.find(find_all=True)
+    l =  list(dev)
+    print(l)
 
 
 def UsuariosAlta2(request):
-    #leer unidad USB
-    f = open(settings.USB_PATH, 'r')
-    contenido=f.read()
-    f.close()
-    contexto = {'contenido': contenido}
-    print(contexto)
-    return render(request, "usuarios/usuarios_alta2.html", contexto)
+    if request.method == 'POST':
+        # leer unidad USB
+        content = getFileContent(settings.USB_PATH)
+        context = {'contenido': content}
+        print(context)
+        getUSBSerial()
+        return render(request, "usuarios/usuarios_alta2.html", context)
+    return render(request, 'usuarios/usuarios_alta1.html')
+
