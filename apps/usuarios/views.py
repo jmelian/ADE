@@ -12,8 +12,12 @@ from django.core import serializers
 from django.conf import settings
 import configparser
 import usb
+from apps.crypto_operations import cryptclient
 
 # Create your views here.
+
+#Variable para guardar la lista de dispositivos antes de insertar el nuevo USB
+dev_list_prev = set()
 
 def inicio(request):
     #Obtencion de la configuración inicial del vehículo a través del archivo de configuracion 'configuracion.ini'
@@ -74,28 +78,55 @@ class UsuariosDelete(DeleteView):
 
 
 def UsuariosAlta1(request):
-    return render(request, "usuarios/usuarios_alta1.html")
+    dev_list_prev = getUSBList()
+    print ("lista1: ", dev_list_prev)
+    contexto = {'dev': dev_list_prev}
+    return render(request, "usuarios/usuarios_alta1.html", contexto)
+
+class Altas(object):
+    def get(self, request, **kwargs):
+        return render(request, "usuarios/usuarios_alta1.html")
 
 
 def getFileContent(file):
     f = open(file, 'r')
     content = f.read()
     f.close()
+    content=cryptclient.decrypt_RSA('keys/javi.private.pem', file, 'Melianok+1')
     return content
+
+def getUSBList():
+    dev = usb.core.find(find_all=True)
+    l =  list(dev)
+    #str1 = ''.join(str(e) for e in l)
+    s = set()
+    for e in l:
+        s.add((hex(e.idVendor), hex(e.idProduct)))
+    return(s)
 
 def getUSBSerial():
     dev = usb.core.find(find_all=True)
     l =  list(dev)
-    print(l)
-
+    vendor=l[0].idVendor
+    product = l[0].idProduct
+    print("vendor: {} - product: {}", vendor, product)
+    new_dev = usb.core.find(idVendor=vendor, idProduct=product)
+    return(new_dev.serial_number)
 
 def UsuariosAlta2(request):
     if request.method == 'POST':
+        print("lista_html: ", request.POST['devices1'])
+        serial = getUSBSerial()
+        if not serial:
+            mensaje = {'dev':'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'}
+            return render(request, 'usuarios/usuarios_alta1.html', mensaje)
+        print("Serial: ", serial)
         # leer unidad USB
         content = getFileContent(settings.USB_PATH)
+
         context = {'contenido': content}
         print(context)
-        getUSBSerial()
+        devList2 = getUSBList()
         return render(request, "usuarios/usuarios_alta2.html", context)
     return render(request, 'usuarios/usuarios_alta1.html')
 
