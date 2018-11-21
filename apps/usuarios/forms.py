@@ -29,6 +29,7 @@ class UsuariosForm(forms.ModelForm):
         model = Usuarios
 
         fields = [
+            'userId',
             'nombre',
             'apellidos',
             'edad',
@@ -38,6 +39,7 @@ class UsuariosForm(forms.ModelForm):
             'admin',
          ]
         labels = {
+            'userId': 'Identificador',
             'nombre': 'Nombre',
             'apellidos': 'Apellidos',
             'edad': 'Edad',
@@ -48,6 +50,7 @@ class UsuariosForm(forms.ModelForm):
 
         }
     widgets = {
+        'userId': forms.Textarea(attrs={'class':'form-control'}),
         'nombre': forms.Textarea(attrs={'class':'form-control'}),
         'apellidos': forms.TextInput(attrs={'class':'form-control'}),
         'edad': forms.TextInput(attrs={'class': 'form-control'}),

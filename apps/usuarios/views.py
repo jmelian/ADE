@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 #from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 from apps.usuarios.forms import RegistroForm, UsuariosForm
 from apps.usuarios.models import Usuarios
 import sys
@@ -92,7 +93,7 @@ def getFileContent(file):
     f = open(file, 'r')
     content = f.read()
     f.close()
-    content=cryptclient.decrypt_RSA('keys/javi.private.pem', file, 'Melianok+1')
+    #content=cryptclient.decrypt_RSA('keys/javi.private.pem', file, 'Melianok+1')
     return content
 
 def getUSBList():
@@ -115,18 +116,37 @@ def getUSBSerial():
 
 def UsuariosAlta2(request):
     if request.method == 'POST':
-        print("lista_html: ", request.POST['devices1'])
-        serial = getUSBSerial()
-        if not serial:
-            mensaje = {'dev':'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'}
-            return render(request, 'usuarios/usuarios_alta1.html', mensaje)
-        print("Serial: ", serial)
-        # leer unidad USB
-        content = getFileContent(settings.USB_PATH)
+        #diferenciamos si el post viene desde alta1
+        if "check" in request.POST:
+            #serial = getUSBSerial()
+            serial = "windows no USB"
+            if not serial:
+                mensaje = {'msg': 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'}
+                return render(request, 'usuarios/usuarios_alta1.html', mensaje)
+            print("Serial: ", serial)
+            # leer unidad USB
+            content = getFileContent(settings.USB_PATH)
+            # leer el usuario del fichero y pasarlo al form
+            user_json = json.loads(content)
+            f = UsuariosForm(user_json)
+            print(f.is_valid)
 
-        context = {'contenido': content}
-        print(context)
-        devList2 = getUSBList()
-        return render(request, "usuarios/usuarios_alta2.html", context)
+            context = {'contenido': content}
+            print(context)
+            return render(request, 'usuarios/usuarios_form.html', {'form': f})
+
+            #devList2 = getUSBList()
+            #return render(request, "usuarios/usuarios_alta2.html", context)
+        #o desde el form de registro de usuarios
+        else:
+            print("llegamos")
+            form = UsuariosForm(request.POST)
+            # check whether it's valid:
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('usuarios:usuarios_list'))
+            else:
+                return render(request, 'usuarios/usuarios_alta1.html', {'msg': form.errors })
+    #si se intenta acceder directamente a la url alta2, se redirige a alta1
     return render(request, 'usuarios/usuarios_alta1.html')
 

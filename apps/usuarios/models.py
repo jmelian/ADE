@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Usuarios(models.Model):
+    userId = models.CharField(primary_key=True, max_length=30, default=None, blank=False, unique=True)
     nombre = models.CharField(max_length=50)
     apellidos = models.CharField(max_length=70)
     edad = models.PositiveIntegerField()

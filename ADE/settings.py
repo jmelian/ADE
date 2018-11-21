@@ -123,4 +123,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-USB_PATH = 'keys/user.tmp.cod'
+USB_PATH = 'keys/user.test'

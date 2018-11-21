@@ -23,7 +23,7 @@
         <tbody>
             {% for usuario in object_list %}
                 <tr>
-                    <th scope="row">{{ usuario.id }}</th>
+                    <th scope="row">{{ usuario.userId }}</th>
                     <td>{{ usuario.nombre }}</td>
                     <td>{{ usuario.apellidos }}</td>
                     <td>{{ usuario.edad }}</td>
@@ -36,8 +36,8 @@
                     <td>{% if usuario.admin %}Sí{% else %}No{% endif%}</td>
 
                     <td>
-                        <a class="btn btn-primary" href="{% url 'usuarios:usuarios_edit' usuario.id %}">Editar</a>
-                        <a class="btn btn-danger" href="#">Borrar</a>
+                        <a class="btn btn-primary" href="{% url 'usuarios:usuarios_edit' usuario.userId %}">Editar</a>
+                        <a class="btn btn-danger" href="{% url 'usuarios:usuarios_delete' usuario.userId %}">Borrar</a>
                     </td>
                 </tr>
             {% endfor %}
