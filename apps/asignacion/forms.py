@@ -8,14 +8,17 @@ class AsignacionForm(forms.ModelForm):
         model = Asignacion
         fields = [
             'usuario',
-            'reglas',
+            'regla',
+            'prioridad',
         ]
         labels = {
             'usuario': 'Usuario',
-            'reglas': 'Reglas',
+            'regla': 'Reglaa',
+            'prioridad': 'Prioridad',
         }
         widgets = {
-            'usuarios': forms.TextInput(attrs={'class': 'form-control'}),
-            'reglas': forms.Textarea(attrs={'class': 'form-control'}),
+            'usuario': forms.TextInput(attrs={'class': 'form-control'}),
+            'regla': forms.Textarea(attrs={'class': 'form-control'}),
+            'prioridad': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
