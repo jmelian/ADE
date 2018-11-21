@@ -4,8 +4,10 @@ from django.urls import reverse, reverse_lazy, resolve
 
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from apps.asignacion.models import Persona, Asignacion
-from apps.asignacion.forms import PersonaForm, AsignacionForm
+from apps.asignacion.models import Asignacion
+from apps.asignacion.forms import AsignacionForm
+from apps.usuarios.models import Usuarios
+from apps.usuarios.forms import UsuariosForm
 
 # Create your views here.
 
@@ -22,7 +24,7 @@ class AsignacionCreate(CreateView):
     model = Asignacion
     template_name = 'asignacion/asignacion_form.html'
     form_class = AsignacionForm
-    second_form_class = PersonaForm
+    second_form_class = UsuariosForm
     success_url = reverse_lazy('asignacion:asignacion_list')
 
     def get_context_data(self, **kwargs):
@@ -48,10 +50,10 @@ class AsignacionCreate(CreateView):
 
 class AsignacionUpdate(UpdateView):
     model = Asignacion
-    second_model = Persona
+    second_model = Usuarios
     template_name = 'asignacion/asignacion_form.html'
     form_class = AsignacionForm
-    second_form_class = PersonaForm
+    second_form_class = UsuariosForm
     success_url = reverse_lazy('asignacion:asignacion_list')
 
 
@@ -59,11 +61,11 @@ class AsignacionUpdate(UpdateView):
         context = super(AsignacionUpdate, self).get_context_data(**kwargs)
         pk = self.kwargs.get('pk', 0)
         asignacion = self.model.objects.get(id=pk)
-        persona = self.second_model.objects.get(id=asignacion.persona_id)
+        usuario = self.second_model.objects.get(id=asignacion.usuario_id)
         if 'form' not in context:
             context['form'] = self.form_class()
         if 'form2' not in context:
-            context['form2'] = self.second_form_class(instance=persona)
+            context['form2'] = self.second_form_class(instance=usuario)
         context['id'] = pk
         return context
 
@@ -71,9 +73,9 @@ class AsignacionUpdate(UpdateView):
         self.object = self.get_object
         id_asignacion = self.kwargs.get('pk', 0)
         asignacion = self.model.objects.get(id=id_asignacion)
-        persona = self.second_model.objects.get(id=asignacion.persona_id)
+        usuario = self.second_model.objects.get(id=asignacion.usuario_id)
         form = self.form_class(request.POST, instance=asignacion)
-        form2 = self.second_form_class(request.POST, instance=persona)
+        form2 = self.second_form_class(request.POST, instance=usuario)
         if form.is_valid() and form2.is_valid():
             form.save()
             form2.save()

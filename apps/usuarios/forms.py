@@ -50,9 +50,48 @@ class UsuariosForm(forms.ModelForm):
 
         }
     widgets = {
-        'userId': forms.Textarea(attrs={'class':'form-control'}),
+        'userId': forms.Textarea(attrs={'class':'form-control', 'required': True}),
         'nombre': forms.Textarea(attrs={'class':'form-control'}),
         'apellidos': forms.TextInput(attrs={'class':'form-control'}),
+        'edad': forms.TextInput(attrs={'class': 'form-control'}),
+        'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+        'email': forms.TextInput(attrs={'class': 'form-control'}),
+        'serial': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+        'admin': forms.CheckboxInput(attrs={'class': 'form-control'}),
+
+    }
+
+
+class UsuariosReadOnlyForm(forms.ModelForm):
+
+    class Meta:
+        model = Usuarios
+
+        fields = [
+            'userId',
+            'nombre',
+            'apellidos',
+            'edad',
+            'telefono',
+            'email',
+            'serial',
+            'admin',
+         ]
+        labels = {
+            'userId': 'Identificador',
+            'nombre': 'Nombre',
+            'apellidos': 'Apellidos',
+            'edad': 'Edad',
+            'telefono': 'Teléfono',
+            'email': 'Correo electrónico',
+            'serial': 'Número de serie',
+            'admin': 'Administrador',
+
+        }
+    widgets = {
+        'userId': forms.Textarea(attrs={'readonly':'readonly'}),
+        'nombre': forms.Textarea(attrs={'readonly':True}),
+        'apellidos': forms.TextInput(attrs={'disabled':True}),
         'edad': forms.TextInput(attrs={'class': 'form-control'}),
         'telefono': forms.TextInput(attrs={'class': 'form-control'}),
         'email': forms.TextInput(attrs={'class': 'form-control'}),
@@ -60,3 +99,11 @@ class UsuariosForm(forms.ModelForm):
         'admin': forms.CheckboxInput(attrs={'class': 'form-control'}),
 
     }
+
+    disabled = [
+        'userId',
+        'nombre',
+        'apellidos',
+        'edad',
+        'telefono',
+    ]

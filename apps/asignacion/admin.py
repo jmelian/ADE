@@ -1,6 +1,6 @@
 from django.contrib import admin
-from apps.asignacion.models import Persona
+from apps.asignacion.models import Asignacion
 
 # Register your models here.
-admin.site.register(Persona)
+admin.site.register(Asignacion)
 

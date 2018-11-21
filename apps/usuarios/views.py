@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from apps.usuarios.forms import RegistroForm, UsuariosForm
+from apps.usuarios.forms import RegistroForm, UsuariosForm, UsuariosReadOnlyForm
 from apps.usuarios.models import Usuarios
 import sys
 import json
@@ -114,39 +114,43 @@ def getUSBSerial():
     new_dev = usb.core.find(idVendor=vendor, idProduct=product)
     return(new_dev.serial_number)
 
+
 def UsuariosAlta2(request):
     if request.method == 'POST':
         #diferenciamos si el post viene desde alta1
         if "check" in request.POST:
             #serial = getUSBSerial()
-            serial = "windows no USB"
-            if not serial:
+            usbserial = "3453ASDB234G"
+            if not usbserial:
                 mensaje = {'msg': 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'}
                 return render(request, 'usuarios/usuarios_alta1.html', mensaje)
-            print("Serial: ", serial)
-            # leer unidad USB
-            content = getFileContent(settings.USB_PATH)
-            # leer el usuario del fichero y pasarlo al form
-            user_json = json.loads(content)
-            f = UsuariosForm(user_json)
-            print(f.is_valid)
+            print("Serial USB: ", usbserial)
+            try:
+                # leer unidad USB
+                content = getFileContent(settings.USB_PATH)
+                # leer el usuario del fichero y pasarlo al form
+                user_json = json.loads(content)
+                f = UsuariosReadOnlyForm(user_json)
+                return render(request, 'usuarios/usuarios_form.html', {'form': f})
+            except:
+                e = sys.exc_info()[0]
+                print("Error leyendo archivos de datos de usuario: %s" % e)
+                mensaje = {'msg': 'Este pendrive no contiene datos de usuario válidos'}
+                return render(request, 'usuarios/usuarios_alta1.html', mensaje)
 
-            context = {'contenido': content}
-            print(context)
-            return render(request, 'usuarios/usuarios_form.html', {'form': f})
-
-            #devList2 = getUSBList()
-            #return render(request, "usuarios/usuarios_alta2.html", context)
         #o desde el form de registro de usuarios
         else:
-            print("llegamos")
-            form = UsuariosForm(request.POST)
-            # check whether it's valid:
-            if form.is_valid():
-                form.save()
-                return HttpResponseRedirect(reverse('usuarios:usuarios_list'))
+            form = UsuariosReadOnlyForm(request.POST)
+            usbserial = "3453ASDB234G" #getUSBSerial()
+            if "serial" in request.POST and request.POST['serial'] == usbserial:
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(reverse('usuarios:usuarios_list'))
+                else:
+                    return render(request, 'usuarios/usuarios_alta1.html', {'msg': form.errors })
             else:
-                return render(request, 'usuarios/usuarios_alta1.html', {'msg': form.errors })
+                return render(request, 'usuarios/usuarios_alta1.html', {'msg': 'USB alterado. Usuario no válido'})
+
     #si se intenta acceder directamente a la url alta2, se redirige a alta1
     return render(request, 'usuarios/usuarios_alta1.html')
 
