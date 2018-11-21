@@ -46,6 +46,10 @@ def inicio(request):
     #print("config: ", configuracion)
     return render(request, "inicio.html", configuracion)
 
+def user_rules(request, user_id = None):
+    pass
+
+
 class RegistroUsuarios(CreateView):
     model = User
     template_name = "usuarios/registrar.html"

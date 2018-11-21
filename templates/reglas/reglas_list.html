@@ -1,39 +1,46 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
 
 {% block content %}
 
+<div class="row"><div class="col-md-12">
 {% if object_list %}
-    <table class="table table-bordered table-sm">
+    <table class="table table-striped table-hover table-sm">
         <thead class="thead-light">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Contenido</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Fecha de creación</th>
-                <th scope="col">Fecha de modificación</th>
-                <th scope="col">Usuarios asignados</th>
+                <th class="row">
+                    <div class="col">#</div>
+                    <div class="col-4">Contenido</div>
+                    <div class="col-3">Descripción</div>
+                    <div class="col">Creación</div>
+                    <div class="col">Modificación</div>
+                    <div class="col-2">Usuarios</div>
+                </th>
             </tr>
         </thead>
         <tbody>
                 {% for regla in object_list %}
                     <tr>
-                        <th scope="row">{{ regla.id }}</th>
-                        <td>{{ regla.contenido }}</td>
-                        <td>{{ regla.descripcion }}</td>
-                        <td>{{ regla.fechaCreacion }}</td>
-                        <td>{{ regla.fechaModificacion }}</td>
-                        <td>{{ regla.persona.nombre }} {{ regla.persona.apellidos }}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{% url 'reglas:reglas_edit' regla.id %}">Editar</a>
-                            <a class="btn btn-danger" href="{% url 'reglas:reglas_delete' regla.id %}">Borrar</a>
+                        <td class="row">
+                        <div class="col"><strong>{{ regla.id }}</strong></div>
+                        <div class="col-4">{{ regla.contenido }}</div>
+                        <div class="col-3">{{ regla.descripcion }}</div>
+                        <div class="col">{{ regla.fechaCreacion|date:'Y-m-d H:i' }}</div>
+                        <div class="col">{{ regla.fechaModificacion|date:'Y-m-d H:i' }}</div>
+                        <div class="col">{{ regla.persona.nombre }} {{ regla.persona.apellidos }}</div>
+                        <div class="col">
+                            <a class="btn btn-primary btn-sm" href="{% url 'reglas:reglas_edit' regla.id %}"><i class="fas fa-pen"></i></a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'reglas:reglas_delete' regla.id %}"><i class="fas fa-trash"></i></a>
+                        </div>
                         </td>
                     </tr>
                 {% endfor %}
         </tbody>
     </table>
 {% else %}
-    <h1>No hay registros de reglas</h1>
+        <div class="alert alert-danger">No hay registros de reglas. <a href="{% url 'reglas:reglas_crear' %}" class="btn btn-success">Añadir regla</a></div></div>
 {% endif %}
+</div></div>
 
 {% endblock %}

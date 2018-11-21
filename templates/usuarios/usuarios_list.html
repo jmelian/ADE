@@ -1,12 +1,12 @@
 {% extends 'base/base.html' %}
-
+{% load i18n %}
 
 {% block content %}
 
 {% if object_list %}
     <table class="table table-bordered table-sm">
         <thead class="thead-light">
-            <tr>
+            <tr scope="row">
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
@@ -17,27 +17,28 @@
                 <th scope="col">Fecha de creación</th>
                 <th scope="col">Fecha de modificación</th>
                 <th scope="col">Reglas asignados</th>
-                <th scope="col">Administrador</th>
+                <th scope="col-2" colspan="2">Administrador</th>
             </tr>
         </thead>
         <tbody>
             {% for usuario in object_list %}
-                <tr>
-                    <th scope="row">{{ usuario.userId }}</th>
-                    <td>{{ usuario.nombre }}</td>
-                    <td>{{ usuario.apellidos }}</td>
-                    <td>{{ usuario.edad }}</td>
-                    <td>{{ usuario.telefono }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.serial }}</td>
-                    <td>{{ usuario.fechaCreacion }}</td>
-                    <td>{{ usuario.fechaModificacion }}</td>
-                    <td>{{ usuario.reglas }}</td>
-                    <td>{% if usuario.admin %}Sí{% else %}No{% endif%}</td>
+                <tr scope="row">
+                    <td scope="col">{{ usuario.userId }}</td>
+                    <td scope="col">{{ usuario.nombre }}</td>
+                    <td scope="col">{{ usuario.apellidos }}</td>
+                    <td scope="col">{{ usuario.edad }}</td>
+                    <td scope="col">{{ usuario.telefono }}</td>
+                    <td scope="col">{{ usuario.email }}</td>
+                    <td scope="col">{{ usuario.serial }}</td>
+                    <td scope="col">{{ usuario.fechaCreacion|date:'Y-m-d H:i' }}</td>
+                    <td scope="col">{{ usuario.fechaModificacion|date:'Y-m-d H:i' }}</td>
+                    <td scope="col">{{ usuario.reglas }}</td>
+                    <td scope="col">{% if usuario.admin %}Sí{% else %}No{% endif%}</td>
 
                     <td>
-                        <a class="btn btn-primary" href="{% url 'usuarios:usuarios_edit' usuario.userId %}">Editar</a>
-                        <a class="btn btn-danger" href="{% url 'usuarios:usuarios_delete' usuario.userId %}">Borrar</a>
+                        <a class="btn btn-warning btn-sm" title="{% trans 'Reglas' %}"href="{% url 'usuarios:user_rules' usuario.pk%}"><i class="fas fa-list-ol"></i></a>
+                        <a class="btn btn-primary btn-sm" title="{% trans 'Editar' %}" href="{% url 'usuarios:usuarios_edit' usuario.pk%}"><i class="fas fa-pen"></i></a>
+                        <a class="btn btn-danger btn-sm" title="{% trans 'Borrar' %}" onclick="return confirm('{% trans '¿Está seguro?' %}');" href="{% url 'usuarios:usuarios_delete' usuario.pk%}"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             {% endfor %}
