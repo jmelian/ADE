@@ -7,6 +7,12 @@
     <table class="table table-bordered table-sm">
         <thead class="thead-light">
             <tr scope="row">
+                <td scope="col" colspan="100%" class="text-right">
+                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario manualmente' %}"href="{% url 'usuarios:usuarios_crear'%}"><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario desde USB' %}" href="{% url 'usuarios:usuarios_alta1'%}"><i class="fas fa-hdd"></i></a>
+                </td>
+            </tr>
+            <tr scope="row">
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellidos</th>
@@ -33,9 +39,9 @@
                     <td scope="col">{{ usuario.fechaCreacion|date:'Y-m-d H:i' }}</td>
                     <td scope="col">{{ usuario.fechaModificacion|date:'Y-m-d H:i' }}</td>
                     <td scope="col">{{ usuario.reglas }}</td>
-                    <td scope="col">{% if usuario.admin %}Sí{% else %}No{% endif%}</td>
+                    <td scope="col">{% if usuario.admin %}<i class="fas fa-check btn-success btn-sm"></i>{% else %}<i class="fas fa-times btn-danger btn-sm"></i>{% endif%}</td>
 
-                    <td>
+                    <td scope="col">
                         <a class="btn btn-warning btn-sm" title="{% trans 'Reglas' %}"href="{% url 'usuarios:user_rules' usuario.pk%}"><i class="fas fa-list-ol"></i></a>
                         <a class="btn btn-primary btn-sm" title="{% trans 'Editar' %}" href="{% url 'usuarios:usuarios_edit' usuario.pk%}"><i class="fas fa-pen"></i></a>
                         <a class="btn btn-danger btn-sm" title="{% trans 'Borrar' %}" onclick="return confirm('{% trans '¿Está seguro?' %}');" href="{% url 'usuarios:usuarios_delete' usuario.pk%}"><i class="fas fa-trash"></i></a>
