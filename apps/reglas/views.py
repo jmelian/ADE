@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse, reverse_lazy, resolve
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from apps.reglas.forms import ReglasForm
+from apps.reglas.forms import ReglasForm, ReglasCrispyForm
 from apps.reglas.models import Reglas
 
 def index(request):
@@ -52,7 +52,7 @@ class ReglasList(ListView):
 
 class ReglasCreate(CreateView):
     model = Reglas
-    form_class = ReglasForm
+    form_class = ReglasCrispyForm
     template_name = 'reglas/reglas_form.html'
     success_url = reverse_lazy('reglas:reglas_list')
 

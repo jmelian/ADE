@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.usuarios.views import RegistroUsuarios, UsuariosList, UsuariosCreate, UsuariosUpdate, UsuariosDelete, UsuariosAlta1, UsuariosAlta2
+from apps.usuarios.views import UsuariosList, UsuariosCreate, UsuariosUpdate, UsuariosDelete, UsuariosAlta1, UsuariosAlta2
 
 from .views import *
 
@@ -8,7 +8,6 @@ from .views import *
 
 
 urlpatterns = [
-    path('registrar', RegistroUsuarios.as_view(), name='registro'),
     path('listar', UsuariosList.as_view(), name='usuarios_list'),
     path('nuevo', UsuariosCreate.as_view(), name='usuarios_crear'),
     #path('editar/(?P<pk>[\x20-\x7E]+)/', UsuariosUpdate.as_view(), name='usuarios_edit'),

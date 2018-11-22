@@ -2,12 +2,11 @@
 
 
 {% block content %}
-<h4>Inserte el pendrive de usuario y pulse "Aceptar"</h4>
+<h4 class="text-center border-bottom">Inserte el pendrive de usuario y pulse "Aceptar"</h4>
 
 <form method="post" action="{% url 'usuarios:usuarios_alta2' %}">
     {% csrf_token %}
     <input type="hidden" id="check" name="check" value=True>
-
     <button class="btn btn-success" type="submit">Aceptar</button>
 </form>
 {% if msg %}

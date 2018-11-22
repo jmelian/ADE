@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from apps.usuarios.forms import RegistroForm, UsuariosForm, UsuariosReadOnlyForm
+from apps.usuarios.forms import UsuariosForm, UsuariosReadOnlyForm, UsuariosCrispyForm, UsuariosCrispyFormReadOnly
 from apps.usuarios.models import Usuarios
 import sys
 import json
@@ -50,15 +50,10 @@ def user_rules(request, user_id = None):
     pass
 
 
-class RegistroUsuarios(CreateView):
-    model = User
-    template_name = "usuarios/registrar.html"
-    form_class = RegistroForm
-    success_url = reverse_lazy('usuarios:usuarios_list')
 
 class UsuariosCreate(CreateView):
     model = Usuarios
-    form_class = UsuariosForm
+    form_class = UsuariosCrispyForm
     template_name = 'usuarios/usuarios_form.html'
     success_url = reverse_lazy('usuarios:usuarios_list')
 
@@ -70,7 +65,7 @@ class UsuariosList(ListView):
 
 class UsuariosUpdate(UpdateView):
     model = Usuarios
-    form_class = UsuariosForm
+    form_class = UsuariosCrispyFormReadOnly
     template_name = 'usuarios/usuarios_form.html'
     success_url = reverse_lazy('usuarios:usuarios_list')
 
@@ -134,7 +129,7 @@ def UsuariosAlta2(request):
                 content = getFileContent(settings.USB_PATH)
                 # leer el usuario del fichero y pasarlo al form
                 user_json = json.loads(content)
-                f = UsuariosReadOnlyForm(user_json)
+                f = UsuariosCrispyFormReadOnly(user_json)
                 return render(request, 'usuarios/usuarios_form.html', {'form': f})
             except:
                 e = sys.exc_info()[0]
@@ -144,7 +139,7 @@ def UsuariosAlta2(request):
 
         #o desde el form de registro de usuarios
         else:
-            form = UsuariosReadOnlyForm(request.POST)
+            form = UsuariosCrispyFormReadOnly(request.POST)
             usbserial = "3453ASDB234G" #getUSBSerial()
             if "serial" in request.POST and request.POST['serial'] == usbserial:
                 if form.is_valid():
