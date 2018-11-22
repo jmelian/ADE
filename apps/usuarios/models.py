@@ -15,5 +15,5 @@ class Usuarios(models.Model):
     fechaModificacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{} {}'.format(self.nombre, self.apellidos)
+        return '{} {} ({})'.format(self.nombre, self.apellidos, self.userId)
 

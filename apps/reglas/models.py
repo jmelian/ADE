@@ -12,5 +12,5 @@ class Reglas(models.Model):
     #usuario = models.ManyToManyField(Usuarios, null=True, blank=True)
 
     def __str__(self):
-        return '{}'.format(self.contenido)
+        return '{}'.format(self.descripcion)
 
