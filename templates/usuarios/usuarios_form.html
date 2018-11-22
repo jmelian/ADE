@@ -2,11 +2,10 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<h1 class="text-center border-bottom">Alta de nuevo usuario</h1>
+
 <div class="row">
     <div class="col-md-8">
-        <div class="page-header">
-            <h1 class="text-center">Alta de nuevo usuario</h1>
-        </div>
         <form method="post">
             {% csrf_token %}
             <!--

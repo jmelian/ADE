@@ -6,6 +6,6 @@
     <h3>Desea eliminar el usuario {{ object.nombre }} {{ object.apellidos }} ({{ object.userId }})?</h3>
 
     <button class="btn btn-danger" type="submit">Sí, eliminar</button>
-    <a class="btn btn-default" href="{% url 'usuarios:usuarios_list' %}">Cancelar</a>
+    <a class="btn btn-secondary" href="{% url 'usuarios:usuarios_list' %}">Cancelar</a>
 </form>
 {% endblock %}
