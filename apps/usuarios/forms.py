@@ -149,7 +149,10 @@ class UsuariosCrispyFormReadOnly(forms.ModelForm):
             Field('email', css_class='input-sm', readonly=True),
             Field('serial', css_class='input-sm', readonly=True),
             Field('admin', css_class='input-sm'),
-            FormActions(Submit('submit', 'Guardar', css_class='btn-success'))
+            FormActions(
+                Submit('submit', 'Guardar', css_class='btn-success'),
+                Submit('cancel', 'Cancelar', css_class='btn-secondary')
+            )
         )
 
 
@@ -184,7 +187,10 @@ class UsuariosCrispyFormEdit(forms.ModelForm):
             Field('email', css_class='input-sm', readonly=True),
             Field('serial', css_class='input-sm', readonly=True),
             Field('admin', css_class='input-sm'),
-            FormActions(Submit('submit', 'Guardar', css_class='btn-success'))
+            FormActions(
+                Submit('submit', 'Guardar', css_class='btn-success'),
+                Submit('cancel', 'Cancelar', css_class='btn-secondary')
+            )
         )
         #self.helper.add_input(Submit('submit', 'Guardar', css_class="btn btn-success"))
 

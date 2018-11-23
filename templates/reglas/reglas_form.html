@@ -1,11 +1,14 @@
 {% extends 'base/base.html' %}
 {% load crispy_forms_tags %}
 
-
 {% block content %}
 <h1 class="text-center border-bottom">Creación de reglas</h1>
-<form method="post">
-    {% csrf_token %}
-    {% crispy form %}
-</form>
+<div class="row">
+    <div class="col-md-8">
+        <form method="post">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
+</div>
 {% endblock %}

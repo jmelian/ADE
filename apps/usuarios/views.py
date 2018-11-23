@@ -20,6 +20,16 @@ from apps.crypto_operations import cryptclient
 #Variable para guardar la lista de dispositivos antes de insertar el nuevo USB
 dev_list_prev = set()
 
+class FormActionMixin(object):
+
+    def post(self, request, *args, **kwargs):
+        #Redireccion para el boton de 'Cancelat'
+        if "cancel" in request.POST:
+            url =  reverse_lazy('usuarios:usuarios_list')
+            return HttpResponseRedirect(url)
+        else:
+            return super(FormActionMixin, self).post(request, *args, **kwargs)
+
 def inicio(request):
     #Obtencion de la configuración inicial del vehículo a través del archivo de configuracion 'configuracion.ini'
     config_file = configparser.ConfigParser()

@@ -1,0 +1,10 @@
+TO DO:
+* Estadísticas: logs de usuario y de aplicación puestos de forma bonita y a lo mejor hasta algún gráfico
+* Generador de llaves (solo en linux)
+* Personalización de reglas: pensar en cómo hacerlo
+* Sugerencias de reglas por parte del usuario: email al administrador (yo)
+* En los formularios de asignación de reglas, destacar más la parte de asignación, es decir, la parte que queremos modificar
+
+BUGS:
+* En la página de crear nueva regla (/reglas/nueva/), no se puede cancelar sin rellenar los campos
+* Al editar usuarios o reglas y cancelar, se guardan los cambios igualmente
