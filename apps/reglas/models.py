@@ -9,7 +9,7 @@ class Reglas(models.Model):
     descripcion = models.CharField(max_length=100)
     fechaCreacion = models.DateTimeField(auto_now_add=True)
     fechaModificacion = models.DateTimeField(auto_now=True)
-    usuarios = models.ManyToManyField(Usuarios, null=True, blank=True)
+    usuarios = models.ManyToManyField(Usuarios, blank=True)
 
     def __str__(self):
         return '{}'.format(self.descripcion)

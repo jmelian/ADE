@@ -151,7 +151,6 @@ class UsuariosCrispyFormReadOnly(forms.ModelForm):
             Field('admin', css_class='input-sm'),
             FormActions(Submit('submit', 'Guardar', css_class='btn-success'))
         )
-        #self.helper.add_input(Submit('submit', 'Guardar', css_class="btn btn-success"))
 
 
 class UsuariosCrispyFormEdit(forms.ModelForm):
@@ -222,10 +221,25 @@ class UsuariosAsignacionForm(forms.ModelForm):
             Field('telefono', css_class='input-sm', readonly=True),
             Field('email', css_class='input-sm', readonly=True),
             Field('serial', css_class='input-sm', readonly=True),
-            Field('admin', css_class='input-sm', readonly=True),
+            Field('admin', disabled=True),
             InlineCheckboxes('reglas'),
             FormActions(
                 Submit('submit', 'Guardar', css_class='btn-success'),
                 Submit('cancel', 'Cancelar', css_class='btn-secondary')
             )
         )
+        if kwargs.get('instance'):
+            initial = kwargs.setdefault('initial', {})
+            # El widget para ModelMultipleChoiceField espera
+            # una lista de primary key para los datos seleccionados
+            initial['reglas'] = [t.pk for t in kwargs['instance'].reglas_set.all()]
+
+        forms.ModelForm.__init__(self, *args, **kwargs)
+
+    # Sobreescribir "save" nos permite procesar el valor del campo 'reglas'
+    def save(self):
+        instance = forms.ModelForm.save(self)
+        instance.reglas_set.clear()
+        instance.reglas_set.add(*self.cleaned_data['reglas'])
+        return instance
+
