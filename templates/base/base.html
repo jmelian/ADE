@@ -35,7 +35,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_usuarios">
                     <a class="dropdown-item" href="{% url 'usuarios:usuarios_list' %}">Listado</a>
-                    <a class="dropdown-item" href="{% url 'asignacion:asignacion_crear' %}">Asignación de reglas</a>
                     <a class="dropdown-item" href="#">Personalización de reglas</a>
                     <a class="dropdown-item" href="{% url 'usuarios:usuarios_alta1' %}">Alta de usuarios</a>
                     <div class="dropdown-divider"></div>
@@ -48,8 +47,7 @@
                     Reglas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_reglas">
-                    <a class="dropdown-item" href="{% url 'reglas:reglas_list' %}">Selección de reglas</a>
-                    <a class="dropdown-item" href="{% url 'asignacion:asignacion_crear' %}">Asignación de reglas</a>
+                    <a class="dropdown-item" href="{% url 'reglas:reglas_list' %}">Listado de reglas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Sugerencias</a>
                 </div>

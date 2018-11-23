@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from apps.usuarios.forms import UsuariosForm, UsuariosReadOnlyForm, UsuariosCrispyForm, UsuariosCrispyFormReadOnly
+from apps.usuarios.forms import UsuariosCrispyForm, UsuariosCrispyFormReadOnly, UsuariosAsignacionForm
 from apps.usuarios.models import Usuarios
 import sys
 import json
@@ -158,3 +158,18 @@ def UsuariosAlta2(request):
     #si se intenta acceder directamente a la url alta2, se redirige a alta1
     return render(request, 'usuarios/usuarios_alta1.html')
 
+class FormActionMixin(object):
+
+    def post(self, request, *args, **kwargs):
+        #Redireccion para el boton de 'Cancelat'
+        if "cancel" in request.POST:
+            url =  reverse_lazy('usuarios:usuarios_list')
+            return HttpResponseRedirect(url)
+        else:
+            return super(FormActionMixin, self).post(request, *args, **kwargs)
+
+class UserAssign(FormActionMixin, UpdateView):
+    model = Usuarios
+    form_class = UsuariosAsignacionForm
+    template_name = 'usuarios/usuarios_asignacion.html'
+    success_url = reverse_lazy('usuarios:usuarios_list')

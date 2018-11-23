@@ -21,7 +21,7 @@
                     <div class="col-3">Descripción</div>
                     <div class="col">Creación</div>
                     <div class="col">Modificación</div>
-                    <div class="col-2">Usuarios</div>
+                    <div class="col-2">Usuarios asignados</div>
                 </th>
             </tr>
         </thead>
@@ -34,8 +34,15 @@
                         <div class="col-3">{{ regla.descripcion }}</div>
                         <div class="col">{{ regla.fechaCreacion|date:'Y-m-d H:i' }}</div>
                         <div class="col">{{ regla.fechaModificacion|date:'Y-m-d H:i' }}</div>
-                        <div class="col">{{ regla.persona.nombre }} {{ regla.persona.apellidos }}</div>
                         <div class="col">
+                            <ul>
+                            {% for usuario in regla.usuarios.all %}
+                                <li>{{ usuario }}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-warning btn-sm" title="{% trans 'Asignar' %}"href="{% url 'reglas:reglas_asignar' regla.id%}"><i class="fas fa-list-ol"></i></a>
                             <a class="btn btn-primary btn-sm" href="{% url 'reglas:reglas_edit' regla.id %}"><i class="fas fa-pen"></i></a>
                             <a class="btn btn-danger btn-sm" href="{% url 'reglas:reglas_delete' regla.id %}" onclick="return confirm ('{% trans '¿Estás seguro de que desea eliminar esta regla?' %}')"><i class="fas fa-trash"></i></a>
                         </div>

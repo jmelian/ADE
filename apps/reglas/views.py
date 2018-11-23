@@ -1,9 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 # Create your views here.
 from django.urls import reverse, reverse_lazy, resolve
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from apps.reglas.forms import ReglasForm, ReglasCrispyForm
+from apps.reglas.forms import ReglasForm, ReglasCrispyForm, ReglasAsignacionForm
 from apps.reglas.models import Reglas
 
 def index(request):
@@ -29,9 +29,9 @@ def reglas_list(request):
 def reglas_edit(request, id_regla):
     regla = Reglas.objects.get(id=id_regla)
     if request.method == 'GET':
-        form = ReglasForm(instance=regla)
+        form = ReglasAsignacionForm(instance=regla)
     else:
-        form = ReglasForm(request.POST, instance=regla)
+        form = ReglasAsignacionForm(request.POST, instance=regla)
         if form.is_valid:
             form.save()
         return redirect('reglas:reglas_list')
@@ -54,7 +54,17 @@ class ReglasList(ListView):
     template_name = 'reglas/reglas_list.html'
 
 
-class ReglasCreate(CreateView):
+class FormActionMixin(object):
+    def post(self, request, *args, **kwargs):
+        #Redireccion para el boton de 'Cancelat'
+        if "cancel" in request.POST:
+            url =  reverse_lazy('reglas:reglas_list')
+            return HttpResponseRedirect(url)
+        else:
+            return super(FormActionMixin, self).post(request, *args, **kwargs)
+
+
+class ReglasCreate(FormActionMixin, CreateView):
     model = Reglas
     form_class = ReglasCrispyForm
     template_name = 'reglas/reglas_form.html'
@@ -63,7 +73,7 @@ class ReglasCreate(CreateView):
 
 class ReglasUpdate(UpdateView):
     model = Reglas
-    form_class = ReglasForm
+    form_class = ReglasCrispyForm
     template_name = 'reglas/reglas_form.html'
     success_url = reverse_lazy('reglas:reglas_list')
 
@@ -73,4 +83,11 @@ class ReglasDelete(DeleteView):
     template_name = 'reglas/reglas_delete.html'
     success_url = reverse_lazy('reglas:reglas_list')
 
+
+
+class ReglasAssign(FormActionMixin, UpdateView):
+    model = Reglas
+    form_class = ReglasAsignacionForm
+    template_name = 'reglas/reglas_asignacion.html'
+    success_url = reverse_lazy('reglas:reglas_list')
 

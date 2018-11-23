@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     #local apps
     'apps.usuarios',
-    'apps.asignacion',
     'apps.reglas',
 ]
 

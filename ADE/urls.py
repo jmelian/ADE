@@ -23,7 +23,6 @@ from apps.usuarios.views import inicio
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reglas/', include(('apps.reglas.urls', 'reglas'), namespace='reglas')),
-    path('asignacion/', include(('apps.asignacion.urls', 'asignacion'), namespace='asignacion')),
     path('usuarios/', include(('apps.usuarios.urls', 'usuarios'), namespace='usuarios')),
     path('', inicio, name='inicio'),
 ]

@@ -38,11 +38,17 @@
                     <td scope="col">{{ usuario.serial }}</td>
                     <td scope="col">{{ usuario.fechaCreacion|date:'Y-m-d H:i' }}</td>
                     <td scope="col">{{ usuario.fechaModificacion|date:'Y-m-d H:i' }}</td>
-                    <td scope="col">{{ usuario.reglas }}</td>
+                    <td scope="col">
+                        <ul>
+                            {% for regla in usuario.reglas_set.all %}
+                                <li>{{ regla }}</li>
+                            {% endfor %}
+                            </ul>
+                    </td>
                     <td scope="col"><i class="fas fa-dot-circle btn-{% if usuario.admin %}success{%else%}danger{%endif%} btn-sm"></i></td>
 
                     <td scope="col">
-                        <a class="btn btn-warning btn-sm" title="{% trans 'Reglas' %}"href="{% url 'usuarios:user_rules' usuario.pk%}"><i class="fas fa-list-ol"></i></a>
+                        <a class="btn btn-warning btn-sm" title="{% trans 'Reglas' %}"href="{% url 'usuarios:usuarios_asignar' usuario.pk%}"><i class="fas fa-list-ol"></i></a>
                         <a class="btn btn-primary btn-sm" title="{% trans 'Editar' %}" href="{% url 'usuarios:usuarios_edit' usuario.pk%}"><i class="fas fa-pen"></i></a>
                         <a class="btn btn-danger btn-sm" title="{% trans 'Borrar' %}" onclick="return confirm('{% trans '¿Está seguro?' %}');" href="{% url 'usuarios:usuarios_delete' usuario.pk%}"><i class="fas fa-trash"></i></a>
                     </td>
@@ -51,7 +57,11 @@
 
 
         {% else %}
-            <h1>No hay registros de usuarios</h1>
+            <div class="alert alert-danger">
+                No hay registros de usuarios.
+                <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario manualmente' %}"href="{% url 'usuarios:usuarios_crear'%}"><i class="fas fa-plus"></i> {% trans 'Añadir usuario manualmente' %}</a>
+                <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario desde USB' %}" href="{% url 'usuarios:usuarios_alta1'%}"><i class="fas fa-hdd"></i> {% trans 'Añadir usuario desde USB' %}</a>
+            </div>
         {% endif %}
     </tbody>
 </table>

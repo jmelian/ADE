@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.reglas.views import index, reglas_view, reglas_list, reglas_edit, reglas_delete, ReglasList, ReglasCreate, ReglasUpdate, ReglasDelete
+from apps.reglas.views import index, reglas_view, reglas_list, reglas_edit, reglas_delete, ReglasList, ReglasCreate, ReglasUpdate, ReglasAssign
 
 
 urlpatterns = [
@@ -13,5 +13,6 @@ urlpatterns = [
     path('editar/<int:pk>/', ReglasUpdate.as_view(), name='reglas_edit'),
     #path('borrar/<int:id_regla>/', reglas_delete, name='reglas_delete'),
     path('borrar/<int:id_regla>/', reglas_delete, name='reglas_delete'),
+    path('asignar/<int:pk>/', ReglasAssign.as_view(), name='reglas_asignar'),
 
 ]

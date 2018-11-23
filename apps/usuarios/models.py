@@ -1,4 +1,5 @@
 from django.db import models
+#from apps.reglas.models import Reglas
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Usuarios(models.Model):
     email = models.EmailField(null=True)
     serial = models.CharField(max_length=50)
     admin = models.BooleanField(default=False)
+    #reglas = models.ManyToManyField(Reglas, null=True, blank=True)
     fechaCreacion = models.DateTimeField(auto_now_add=True)
     fechaModificacion = models.DateTimeField(auto_now=True)
 
