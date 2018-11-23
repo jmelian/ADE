@@ -12,6 +12,6 @@ urlpatterns = [
     #path('editar/<int:id_regla>/', reglas_edit, name='reglas_edit'),
     path('editar/<int:pk>/', ReglasUpdate.as_view(), name='reglas_edit'),
     #path('borrar/<int:id_regla>/', reglas_delete, name='reglas_delete'),
-    path('borrar/<int:pk>/', ReglasDelete.as_view(), name='reglas_delete'),
+    path('borrar/<int:id_regla>/', reglas_delete, name='reglas_delete'),
 
 ]

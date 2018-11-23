@@ -11,7 +11,7 @@
         <thead class="thead-light">
             <tr scope="row">
                 <td scope="col" colspan="100%" class="text-right">
-                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir regla' %}"href="{% url 'reglas:reglas_crear'%}"><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir regla' %}"href="{% url 'reglas:reglas_crear'%}"><i class="fas fa-plus"></i> {% trans 'Añadir regla' %}</a>
                 </td>
             </tr>
             <tr>
@@ -37,7 +37,7 @@
                         <div class="col">{{ regla.persona.nombre }} {{ regla.persona.apellidos }}</div>
                         <div class="col">
                             <a class="btn btn-primary btn-sm" href="{% url 'reglas:reglas_edit' regla.id %}"><i class="fas fa-pen"></i></a>
-                            <a class="btn btn-danger btn-sm" href="{% url 'reglas:reglas_delete' regla.id %}"><i class="fas fa-trash"></i></a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'reglas:reglas_delete' regla.id %}" onclick="return confirm ('{% trans '¿Estás seguro de que desea eliminar esta regla?' %}')"><i class="fas fa-trash"></i></a>
                         </div>
                         </td>
                     </tr>
@@ -45,7 +45,7 @@
         </tbody>
     </table>
 {% else %}
-        <div class="alert alert-danger">No hay registros de reglas. <a href="{% url 'reglas:reglas_crear' %}" class="btn btn-success">Añadir regla</a></div></div>
+        <div class="alert alert-danger">No hay registros de reglas. <a href="{% url 'reglas:reglas_crear' %}" class="btn btn-outline-success">{%trans 'Añadir regla'%}</a></div></div>
 {% endif %}
 </div></div>
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib.auth.models import User
 #from django.contrib.auth.forms import UserCreationForm
@@ -74,6 +74,11 @@ class UsuariosDelete(DeleteView):
     model = Usuarios
     template_name = 'usuarios/usuarios_delete.html'
     success_url = reverse_lazy('usuarios:usuarios_list')
+
+def usuarios_delete(request, user_id):
+    user = Usuarios.objects.get(pk=user_id)
+    user.delete()
+    return redirect(reverse('usuarios:usuarios_list'))
 
 
 

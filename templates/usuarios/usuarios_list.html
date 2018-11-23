@@ -8,8 +8,8 @@
         <thead class="thead-light">
             <tr scope="row">
                 <td scope="col" colspan="100%" class="text-right">
-                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario manualmente' %}"href="{% url 'usuarios:usuarios_crear'%}"><i class="fas fa-plus"></i></a>
-                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario desde USB' %}" href="{% url 'usuarios:usuarios_alta1'%}"><i class="fas fa-hdd"></i></a>
+                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario manualmente' %}"href="{% url 'usuarios:usuarios_crear'%}"><i class="fas fa-plus"></i> {% trans 'Añadir usuario manualmente' %}</a>
+                    <a class="btn btn-outline-success btn-sm" title="{% trans 'Añadir usuario desde USB' %}" href="{% url 'usuarios:usuarios_alta1'%}"><i class="fas fa-hdd"></i> {% trans 'Añadir usuario desde USB' %}</a>
                 </td>
             </tr>
             <tr scope="row">
@@ -39,7 +39,7 @@
                     <td scope="col">{{ usuario.fechaCreacion|date:'Y-m-d H:i' }}</td>
                     <td scope="col">{{ usuario.fechaModificacion|date:'Y-m-d H:i' }}</td>
                     <td scope="col">{{ usuario.reglas }}</td>
-                    <td scope="col">{% if usuario.admin %}<i class="fas fa-check btn-success btn-sm"></i>{% else %}<i class="fas fa-times btn-danger btn-sm"></i>{% endif%}</td>
+                    <td scope="col"><i class="fas fa-dot-circle btn-{% if usuario.admin %}success{%else%}danger{%endif%} btn-sm"></i></td>
 
                     <td scope="col">
                         <a class="btn btn-warning btn-sm" title="{% trans 'Reglas' %}"href="{% url 'usuarios:user_rules' usuario.pk%}"><i class="fas fa-list-ol"></i></a>

@@ -37,13 +37,17 @@ def reglas_edit(request, id_regla):
         return redirect('reglas:reglas_list')
     return render(request, 'reglas/reglas_form.html', {'form':form})
 
+#def reglas_delete(request, id_regla):
+#    regla = Reglas.objects.get(id=id_regla)
+#    if request.method == 'POST':
+#        regla.delete()
+#        return redirect('reglas:reglas_list')
+#    return render(request, 'reglas/reglas_delete.html', {'regla':regla})
 
 def reglas_delete(request, id_regla):
-    regla = Reglas.objects.get(id=id_regla)
-    if request.method == 'POST':
-        regla.delete()
-        return redirect('reglas:reglas_list')
-    return render(request, 'reglas/reglas_delete.html', {'regla':regla})
+    regla = Reglas.objects.get(pk=id_regla)
+    regla.delete()
+    return redirect('reglas:reglas_list')
 
 class ReglasList(ListView):
     model = Reglas
