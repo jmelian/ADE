@@ -5,20 +5,28 @@ from django.contrib.auth.models import User
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from apps.usuarios.forms import UsuariosCrispyForm, UsuariosCrispyFormReadOnly, UsuariosAsignacionForm
-from apps.usuarios.models import Usuarios
+from .forms import UsuariosCrispyForm, UsuariosCrispyFormReadOnly, UsuariosAsignacionForm
+from .models import Usuarios
 import sys
 import json
 from django.core import serializers
 from django.conf import settings
 import configparser
 import usb
+import logging
+
 from apps.crypto_operations import cryptclient
 
 # Create your views here.
+logger = logging.getLogger(__name__)
+#logging.basicConfig(level=logging.DEBUG,
+#                    format='%(asctime)s : %(levelname)s : %(message)s',
+#                    filename = 'log.log',
+#                    filemode = 'w',)
 
 #Variable para guardar la lista de dispositivos antes de insertar el nuevo USB
 dev_list_prev = set()
+
 
 class FormActionMixin(object):
 
@@ -31,9 +39,19 @@ class FormActionMixin(object):
             return super(FormActionMixin, self).post(request, *args, **kwargs)
 
 def inicio(request):
+    '''
+    Página de inicio de la aplicación donde se muestran los datos del vehículo (cargados desde un archivo de
+    configuracion)
+    :return: Renderiza 'inicio.html' pasando como contexto la información tanto del vehículo como de los propietarios
+    (administradores).
+    Ejemplo:
+        propietarios = {"PROPIETARIOS": [{"model": "usuario.usuario","pk": 1, "fields": {"nombre": "Javier",
+        "apellidos": "Melian", "edad": 15}},{"model": "usuario.usuario","pk": 2,"fields": {"nombre": "dsghs",
+        "apellidos": "fgs","edad": 7}}]}
+    '''
     #Obtencion de la configuración inicial del vehículo a través del archivo de configuracion 'configuracion.ini'
     config_file = configparser.ConfigParser()
-    config_file.read('configuracion.ini')
+    config_file.read(settings.VEHICLE_CONFIG_FILE)
     configuracion = {}
     for section in config_file.sections():
         configuracion[section] = {}
@@ -50,7 +68,6 @@ def inicio(request):
         print("Error: %s" % e)
         propietarios = {}
     
-    #propietarios = {"PROPIETARIOS": [{"model": "usuario.usuario","pk": 1, "fields": {"nombre": "Javier", "apellidos": "Melian", "edad": 15}},{"model": "usuario.usuario","pk": 2,"fields": {"nombre": "dsghs", "apellidos": "fgs","edad": 7}}]}
     #juntamos los datos del vehículo y del propietario en el mismo diccionario para pasarlo como contexto
     configuracion.update(propietarios)
     #print("config: ", configuracion)
@@ -70,8 +87,9 @@ class UsuariosCreate(CreateView):
 
 class UsuariosList(ListView):
     model = Usuarios
-    template_name = 'usuarios/usuarios_list.html'
+    logger.error("Listado de usuarios")
 
+    template_name = 'usuarios/usuarios_list.html'
 
 class UsuariosUpdate(UpdateView):
     model = Usuarios
@@ -87,6 +105,7 @@ class UsuariosDelete(DeleteView):
 
 def usuarios_delete(request, user_id):
     user = Usuarios.objects.get(pk=user_id)
+    logger.error("Borrado del usuario: %s", user)
     user.delete()
     return redirect(reverse('usuarios:usuarios_list'))
 
@@ -95,6 +114,9 @@ def usuarios_delete(request, user_id):
 def UsuariosAlta1(request):
     dev_list_prev = getUSBList()
     print ("lista1: ", dev_list_prev)
+    logger.error("Listado de usuarios - debug")
+    logger.log(0, 'mensaje')
+
     contexto = {'dev': dev_list_prev}
     return render(request, "usuarios/usuarios_alta1.html", contexto)
 

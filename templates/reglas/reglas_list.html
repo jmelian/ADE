@@ -5,9 +5,8 @@
 {% block content %}
 <h1 class="text-center border-bottom">Listado de reglas</h1>
 
-<div class="row"><div class="col-md-12">
 {% if object_list %}
-    <table class="table table-striped table-hover table-sm">
+    <table id="datatable_listar" class="table table-striped table-hover table-sm">
         <thead class="thead-light">
             <tr scope="row">
                 <td scope="col" colspan="100%" class="text-right">
@@ -21,7 +20,9 @@
                     <div class="col-3">Descripción</div>
                     <div class="col">Creación</div>
                     <div class="col">Modificación</div>
-                    <div class="col-2">Usuarios asignados</div>
+                    <div class="col">Usuarios asignados</div>
+                    <div class="col">Acciones</div>
+
                 </th>
             </tr>
         </thead>
@@ -54,6 +55,5 @@
 {% else %}
         <div class="alert alert-danger">No hay registros de reglas. <a href="{% url 'reglas:reglas_crear' %}" class="btn btn-outline-success">{%trans 'Añadir regla'%}</a></div></div>
 {% endif %}
-</div></div>
 
 {% endblock %}
