@@ -6,7 +6,7 @@ from apps.reglas.models import Reglas
 
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Field
+from crispy_forms.layout import Submit, Layout, Field, HTML, Button
 from crispy_forms.bootstrap import (
     PrependedText, PrependedAppendedText, FormActions, InlineCheckboxes)
 
@@ -249,3 +249,36 @@ class UsuariosAsignacionForm(forms.ModelForm):
         instance.reglas_set.add(*self.cleaned_data['reglas'])
         return instance
 
+
+class UsuariosCrispyFormNuevaLlave(forms.ModelForm):
+    class Meta:
+        model = Usuarios
+        fields = ('nombre', 'apellidos', 'edad', 'telefono', 'email')
+        labels = {
+            'nombre': 'Nombre',
+            'apellidos': 'Apellidos',
+            'edad': 'Edad',
+            'telefono': 'Teléfono',
+            'email': 'Correo electrónico',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-sm-2'
+        self.helper.field_class = 'col-sm-6'
+        self.helper.layout = Layout(
+            Field('nombre', css_class='input-sm'),
+            Field('apellidos', css_class='input-sm'),
+            Field('edad', css_class='input-sm'),
+            Field('telefono', css_class='input-sm'),
+            Field('email', css_class='input-sm'),
+            HTML("<h5>Inserte USB y pulse 'Validar USB' para continuar</h5>"),
+            FormActions(
+                Button('cancel', 'Validar USB', onclick='validarUSB()', css_class="btn-primary"),
+                Submit('submit', 'Siguiente', css_class='btn-success', disabled=True),
+                Submit('cancel', 'Cancelar', css_class='btn-secondary')
+            )
+        )

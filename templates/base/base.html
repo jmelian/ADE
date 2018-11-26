@@ -31,11 +31,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/"><i class="fas fa-home"></i> Inicio<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_usuarios" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i>
                     Usuarios
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_usuarios">
@@ -43,12 +43,12 @@
                     <a class="dropdown-item" href="#">Personalización de reglas</a>
                     <a class="dropdown-item" href="{% url 'usuarios:usuarios_alta1' %}">Alta de usuarios</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Generación de llaves</a>
+                    <a class="dropdown-item" href="{% url 'usuarios:usuarios_llave' %}">Generación de llaves (USB insertado previamente)</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown_reglas" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
+                   aria-haspopup="true" aria-expanded="false"><i class="fas fa-list-ol"></i>
                     Reglas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_reglas">
@@ -58,7 +58,7 @@
                 </div>
             </li>
              <li class="nav-item active">
-                <a class="nav-link" href="#">Estadísticas<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#"><i class="fas fa-chart-bar"></i> Estadísticas<span class="sr-only">(current)</span></a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -98,7 +98,7 @@ https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json
         $('#datatable_listar').DataTable({
             language: {
                 "sProcessing":     "Procesando...",
-                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sLengthMenu":     "Mostrar _MENU_ registros por página",
                 "sZeroRecords":    "No se encontraron resultados",
                 "sEmptyTable":     "Ningún dato disponible en esta tabla",
                 "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",

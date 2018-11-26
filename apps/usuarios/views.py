@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from .forms import UsuariosCrispyForm, UsuariosCrispyFormReadOnly, UsuariosAsignacionForm
+from .forms import UsuariosCrispyForm, UsuariosCrispyFormReadOnly, UsuariosAsignacionForm, UsuariosCrispyFormNuevaLlave
 from .models import Usuarios
 import sys
 import json
@@ -190,6 +190,10 @@ def UsuariosAlta2(request):
     #si se intenta acceder directamente a la url alta2, se redirige a alta1
     return render(request, 'usuarios/usuarios_alta1.html')
 
+'''
+ASIGNACION  DE USUARIOS A REGLAS
+'''
+
 class FormActionMixin(object):
 
     def post(self, request, *args, **kwargs):
@@ -205,3 +209,37 @@ class UserAssign(FormActionMixin, UpdateView):
     form_class = UsuariosAsignacionForm
     template_name = 'usuarios/usuarios_asignacion.html'
     success_url = reverse_lazy('usuarios:usuarios_list')
+
+
+'''
+CREACION DE LLAVES DE ACCESO USB
+'''
+
+class GenerarLlave(CreateView):
+    model = Usuarios
+    exclude = ['userId', 'serial']
+    form_class = UsuariosCrispyFormNuevaLlave
+    template_name = 'usuarios/usuarios_form.html'
+    success_url = reverse_lazy('usuarios:usuarios_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(GenerarLlave, self).get_context_data(**kwargs)
+        usbserial = ""
+        # usbserial = getUSBSerial()
+        if not usbserial:
+            context['msg'] = 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'
+        else:
+            context['msg'] = ""
+        return context
+
+    def form_valid(self, form):
+        import string
+        import random
+
+        # Generamos un userId aleatorio de 10 dígitos
+        userId = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+        form.instance.userId = userId
+        usbserial = userId
+        form.instance.serial = usbserial
+        return super(GenerarLlave, self).form_valid(form)
+
