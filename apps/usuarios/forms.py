@@ -275,10 +275,9 @@ class UsuariosCrispyFormNuevaLlave(forms.ModelForm):
             Field('edad', css_class='input-sm'),
             Field('telefono', css_class='input-sm'),
             Field('email', css_class='input-sm'),
-            HTML("<h5>Inserte USB y pulse 'Validar USB' para continuar</h5>"),
+            HTML("<h5>Inserte USB </h5>"),
             FormActions(
-                Button('cancel', 'Validar USB', onclick='validarUSB()', css_class="btn-primary"),
-                Submit('submit', 'Siguiente', css_class='btn-success', disabled=True),
+                Submit('submit', 'Siguiente', css_class='btn-success'),
                 Submit('cancel', 'Cancelar', css_class='btn-secondary')
             )
         )

@@ -8,59 +8,7 @@
     <div class="col-md-8">
         <form method="post">
             {% csrf_token %}
-            <!--
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.userId.name}}">{{form.userId.label}}:</label>
-                    {{form.userId}}
-                </div>
-            </div>
-
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.nombre.name}}">{{form.nombre.label}}:</label>
-                    {{form.nombre}}
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.nombre.apellidos}}">{{form.apellidos.label}}:</label>
-                    {{form.apellidos}}
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.edad.name}}">{{form.edad.label}}:</label>
-                    {{form.edad}}
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.email.name}}">{{form.email.label}}:</label>
-                    {{form.email}}
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.telefono.name}}">{{form.telefono.label}}:</label>
-                    {{form.telefono}}
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.serial.name}}">{{form.serial.label}}:</label>
-                    {{form.serial}}
-                </div>
-            </div>
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-group">
-                    <label for="{{form.admin.name}}">{{form.admin.label}}:</label>
-                    {{form.admin}}
-                </div>
-            </div>
-            -->
             {% crispy form %}
-
         </form>
     </div>
 </div>

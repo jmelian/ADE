@@ -141,14 +141,32 @@ def getUSBList():
         s.add((hex(e.idVendor), hex(e.idProduct)))
     return(s)
 
-def getUSBSerial():
-    dev = usb.core.find(find_all=True)
-    l =  list(dev)
-    vendor=l[0].idVendor
-    product = l[0].idProduct
-    print("vendor: {} - product: {}", vendor, product)
-    new_dev = usb.core.find(idVendor=vendor, idProduct=product)
-    return(new_dev.serial_number)
+def USB_present(simulate=False, prob_ok = 0.1):
+    if not simulate:
+        dev = usb.core.find(find_all=True)
+        l =  list(dev)
+        return(len(l) > 0)
+    else:
+        import random
+        return (random.random() < prob_ok)
+
+def getUSBSerial(simulate=False, probability_ok=0.2):
+    if not simulate:
+        dev = usb.core.find(find_all=True)
+        l =  list(dev)
+        vendor=l[0].idVendor
+        product = l[0].idProduct
+        print("vendor: {} - product: {}", vendor, product)
+        new_dev = usb.core.find(idVendor=vendor, idProduct=product)
+        return(new_dev.serial_number)
+    else:
+        import random
+        import string
+        if (random.random() < probability_ok):
+            return  (''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(12)))
+        else:
+            return None
+
 
 
 def UsuariosAlta2(request):
@@ -156,7 +174,8 @@ def UsuariosAlta2(request):
         #diferenciamos si el post viene desde alta1
         if "check" in request.POST:
             #serial = getUSBSerial()
-            usbserial = "3453ASDB234G"
+            #usbserial = "3453ASDB234G"
+            usbserial = getUSBSerial(simulate=True)
             if not usbserial:
                 mensaje = {'msg': 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'}
                 return render(request, 'usuarios/usuarios_alta1.html', mensaje)
@@ -177,7 +196,8 @@ def UsuariosAlta2(request):
         #o desde el form de registro de usuarios
         else:
             form = UsuariosCrispyFormReadOnly(request.POST)
-            usbserial = "3453ASDB234G" #getUSBSerial()
+            #usbserial = "3453ASDB234G" #getUSBSerial()
+            usbserial = getUSBSerial(simulate=True)
             if "serial" in request.POST and request.POST['serial'] == usbserial:
                 if form.is_valid():
                     form.save()
@@ -225,7 +245,8 @@ class GenerarLlave(CreateView):
     def get_context_data(self, **kwargs):
         context = super(GenerarLlave, self).get_context_data(**kwargs)
         usbserial = ""
-        # usbserial = getUSBSerial()
+        usbserial = getUSBSerial(simulate=True)
+
         if not usbserial:
             context['msg'] = 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'
         else:
@@ -237,9 +258,13 @@ class GenerarLlave(CreateView):
         import random
 
         # Generamos un userId aleatorio de 10 dígitos
-        userId = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-        form.instance.userId = userId
-        usbserial = userId
-        form.instance.serial = usbserial
-        return super(GenerarLlave, self).form_valid(form)
+        if (USB_present(simulate=True, prob_ok=0.1)):
+            userId = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+            form.instance.userId = userId
+            usbserial = userId
+            form.instance.serial = usbserial
+            return super(GenerarLlave, self).form_valid(form)
+        else:
+            form.add_error (None,'USB is not present')
+            return super(GenerarLlave, self).form_invalid(form)
 
