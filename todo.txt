@@ -1,12 +1,14 @@
 TO DO:
 * Estadísticas: logs de usuario y de aplicación puestos de forma bonita y a lo mejor hasta algún gráfico
 * Hacer que las tablas se puedan ordenar por valor de campo
-* Generador de llaves (solo en linux)
 * Comprobar y estabilizar la lectura desde usb (solo en linux)
 * Personalización de reglas: pensar en cómo hacerlo -> regla de restringir los días de la semana, indicar qué dias
 * Sugerencias de reglas por parte del usuario: email al administrador (yo)
 * En los formularios de asignación de reglas, destacar más la parte de asignación, es decir, la parte que queremos modificar
 * Juntar las aplicaciones de reglas y de usuarios en una sola aplicación (bajísima prioridad)
+
+DONE
+* Generador de llaves (solo en linux)
 
 BUGS:
 * En la página de crear nueva regla (/reglas/nueva/), no se puede cancelar sin rellenar los campos
