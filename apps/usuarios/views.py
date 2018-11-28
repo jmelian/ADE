@@ -219,7 +219,7 @@ class FormActionMixin(object):
     def post(self, request, *args, **kwargs):
         #Redireccion para el boton de 'Cancelat'
         if "cancel" in request.POST:
-            url =  reverse_lazy('usuarios:usuarios_list')
+            url = reverse_lazy('usuarios:usuarios_list')
             return HttpResponseRedirect(url)
         else:
             return super(FormActionMixin, self).post(request, *args, **kwargs)
@@ -242,6 +242,24 @@ class GenerarLlave(CreateView):
     template_name = 'usuarios/usuarios_form.html'
     success_url = reverse_lazy('usuarios:usuarios_list')
 
+    def write_user(self, user):
+        #Convertimos los datos del formulario en un JSON, le quitamos lo que no necesitamos y le añadimos el userId
+        user_data = serializers.serialize('json', [user, ])
+        struct = json.loads(user_data)
+        user_data = struct[0]["fields"]
+        del user_data['admin']
+        del user_data['fechaCreacion']
+        del user_data['fechaModificacion']
+        user_data['userId'] = struct[0]['pk']
+        #Encriptamos los datos de usuario en un archivo (USB_PATH) que guardamos en el USB
+        #cryptclient.encrypt_RSA_text(settings.PUBLIC_KEY, json.dumps(user_data), settings.USB_PATH)
+        #Firmanos ese archivo y guardamos la firma en el mismo USB
+        #cryptclient.sign_file(settings.PRIVATE_KEY, settings.USB_PATH, settings.SECRET_KEY)
+        f = open(str(user_data['userId']) + '.test', 'wb')
+        f.write(json.dumps(user_data))
+        f.close()
+        return (user_data)
+
     def get_context_data(self, **kwargs):
         context = super(GenerarLlave, self).get_context_data(**kwargs)
         usbserial = ""
@@ -256,13 +274,17 @@ class GenerarLlave(CreateView):
     def form_valid(self, form):
         import string
         import random
+        from django.core import serializers
 
-        # Generamos un userId aleatorio de 10 dígitos
-        if (USB_present(simulate=True, prob_ok=0.1)):
+        if (USB_present(simulate=True, prob_ok=0.5)):
+            # Generamos un userId aleatorio de 10 dígitos
             userId = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
             form.instance.userId = userId
             usbserial = userId
             form.instance.serial = usbserial
+            user = self.write_user(form.instance)
+
+            print(user)
             return super(GenerarLlave, self).form_valid(form)
         else:
             form.add_error (None,'USB is not present')

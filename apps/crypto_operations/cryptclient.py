@@ -48,7 +48,7 @@ def verify_sign(public_key_loc, signature, data_file):
     return False
 
 
-def encrypt_RSA (pub_key_file, data_file, output_file):
+def encrypt_RSA_file (pub_key_file, data_file, output_file):
     #from __future__ import print_function, unicode_literals
     import base64
     import sys
@@ -64,7 +64,23 @@ def encrypt_RSA (pub_key_file, data_file, output_file):
     f.write(cipher_text)
     f.close()
 
-def decrypt_RSA (priv_key_file, data_file, passphrase):
+def encrypt_RSA_text (pub_key_file, data_text, output_file):
+    #from __future__ import print_function, unicode_literals
+    import base64
+    import sys
+
+    from Crypto.PublicKey import RSA
+    from Crypto.Cipher import PKCS1_v1_5
+
+    pubkey = RSA.importKey(open(pub_key_file).read())
+    cipher = PKCS1_v1_5.new(pubkey)
+    cipher_text = cipher.encrypt(str.encode(data_text))
+    cipher_text = base64.b64encode(cipher_text)
+    f = open(output_file, 'wb')
+    f.write(cipher_text)
+    f.close()
+
+def decrypt_RSA_file (priv_key_file, data_file, passphrase):
     import base64
     import sys
 
@@ -89,7 +105,6 @@ def decrypt_RSA (priv_key_file, data_file, passphrase):
     #with open(output_file, 'wb') as f: f.write(plain_text.decode('utf-8').strip())
     print("texto: ", plain_text)
     return plain_text.decode('utf-8').strip()
-
 
 
 def sign_file (priv_key_file, file_to_sign, passphrase):

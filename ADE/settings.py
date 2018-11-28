@@ -172,5 +172,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # App constants
+PRIVATE_KEY = 'keys/javi.private.pem'
+PUBLIC_KEY = 'keys/javi.public.pem'
+
 VEHICLE_CONFIG_FILE = 'configuracion.ini'
 USB_PATH = 'keys/user.test'
