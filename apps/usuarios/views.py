@@ -112,13 +112,9 @@ def usuarios_delete(request, user_id):
 
 
 def UsuariosAlta1(request):
-    dev_list_prev = getUSBList()
-    print ("lista1: ", dev_list_prev)
-    logger.error("Listado de usuarios - debug")
-    logger.log(0, 'mensaje')
-
-    contexto = {'dev': dev_list_prev}
-    return render(request, "usuarios/usuarios_alta1.html", contexto)
+    #dev_list_prev = getUSBList()
+    #contexto = {'dev': dev_list_prev}
+    return render(request, "usuarios/usuarios_alta1.html")#, contexto)
 
 class Altas(object):
     def get(self, request, **kwargs):
@@ -132,6 +128,7 @@ def getFileContent(file):
     #content=cryptclient.decrypt_RSA('keys/javi.private.pem', file, 'Melianok+1')
     return content
 
+
 def getUSBList():
     dev = usb.core.find(find_all=True)
     l =  list(dev)
@@ -140,6 +137,7 @@ def getUSBList():
     for e in l:
         s.add((hex(e.idVendor), hex(e.idProduct)))
     return(s)
+
 
 def USB_present(simulate=False, prob_ok = 0.1):
     if not simulate:
@@ -150,13 +148,13 @@ def USB_present(simulate=False, prob_ok = 0.1):
         import random
         return (random.random() < prob_ok)
 
+
 def getUSBSerial(simulate=False, probability_ok=0.2):
     if not simulate:
         dev = usb.core.find(find_all=True)
         l =  list(dev)
         vendor=l[0].idVendor
         product = l[0].idProduct
-        print("vendor: {} - product: {}", vendor, product)
         new_dev = usb.core.find(idVendor=vendor, idProduct=product)
         return(new_dev.serial_number)
     else:
@@ -173,20 +171,32 @@ def UsuariosAlta2(request):
     if request.method == 'POST':
         #diferenciamos si el post viene desde alta1
         if "check" in request.POST:
-            #serial = getUSBSerial()
-            #usbserial = "3453ASDB234G"
-            usbserial = getUSBSerial(simulate=True)
+            usbserial = getUSBSerial(simulate=False)
             if not usbserial:
                 mensaje = {'msg': 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'}
                 return render(request, 'usuarios/usuarios_alta1.html', mensaje)
-            print("Serial USB: ", usbserial)
-            try:
-                # leer unidad USB
-                content = getFileContent(settings.USB_PATH)
-                # leer el usuario del fichero y pasarlo al form
-                user_json = json.loads(content)
-                f = UsuariosCrispyFormReadOnly(user_json)
-                return render(request, 'usuarios/usuarios_form.html', {'form': f})
+            try: # leer unidad USB
+                #comprobamos la firma
+                print("Verificando firma")
+                if cryptclient.verify_sign(settings.PUBLIC_KEY, settings.SIGNATURE, settings.USB_USER_FILE):
+                    print("Firma verificada")
+                    #content = getFileContent(settings.USB_USER_FILE)
+                    content = cryptclient.decrypt_RSA_file(settings.PRIVATE_KEY, settings.USB_USER_FILE)
+                    # leer el usuario del fichero y pasarlo al form
+                    user_json = json.loads(content)
+
+                    # Comprobamos que los números de serie coinciden,es decir, que los archivos del usuario no han sido copiados a otro USB
+                    if (user_json['serial'] == usbserial):
+                        f = UsuariosCrispyFormReadOnly(user_json)
+                        return render(request, 'usuarios/usuarios_form.html', {'form': f})
+                    else:
+                        mensaje = {'msg': 'Este pendrive no es válido - Ha sido copiado'}
+                        return render(request, 'usuarios/usuarios_alta1.html', mensaje)
+                        
+                else:
+                    mensaje = {'msg': 'Este pendrive no contiene datos de usuario válidos - Firma incorrecta'}
+                    return render(request, 'usuarios/usuarios_alta1.html', mensaje)
+
             except:
                 e = sys.exc_info()[0]
                 print("Error leyendo archivos de datos de usuario: %s" % e)
@@ -197,7 +207,7 @@ def UsuariosAlta2(request):
         else:
             form = UsuariosCrispyFormReadOnly(request.POST)
             #usbserial = "3453ASDB234G" #getUSBSerial()
-            usbserial = getUSBSerial(simulate=True)
+            usbserial = getUSBSerial(simulate=False)
             if "serial" in request.POST and request.POST['serial'] == usbserial:
                 if form.is_valid():
                     form.save()
@@ -251,19 +261,22 @@ class GenerarLlave(CreateView):
         del user_data['fechaCreacion']
         del user_data['fechaModificacion']
         user_data['userId'] = struct[0]['pk']
-        #Encriptamos los datos de usuario en un archivo (USB_PATH) que guardamos en el USB
-        #cryptclient.encrypt_RSA_text(settings.PUBLIC_KEY, json.dumps(user_data), settings.USB_PATH)
+        print("usuario a encriptar: ", json.dumps(user_data))
+        #Encriptamos los datos de usuario en un archivo (USB_USER_FILE) que guardamos en el USB
+        cryptclient.encrypt_RSA_text(settings.PUBLIC_KEY, json.dumps(user_data), settings.USB_USER_FILE)
+        logger.debug("Usuario encriptado")
         #Firmanos ese archivo y guardamos la firma en el mismo USB
-        #cryptclient.sign_file(settings.PRIVATE_KEY, settings.USB_PATH, settings.SECRET_KEY)
-        f = open(str(user_data['userId']) + '.test', 'wb')
-        f.write(json.dumps(user_data))
-        f.close()
+        cryptclient.sign_file(settings.PRIVATE_KEY, settings.USB_USER_FILE)
+        logger.debug("Usuario firmado")
+        #f = open(str(user_data['userId']) + '.test', 'wb')
+        #f.write(json.dumps(user_data))
+        #f.close()
         return (user_data)
 
     def get_context_data(self, **kwargs):
         context = super(GenerarLlave, self).get_context_data(**kwargs)
         usbserial = ""
-        usbserial = getUSBSerial(simulate=True)
+        usbserial = getUSBSerial(simulate=False)
 
         if not usbserial:
             context['msg'] = 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'
@@ -276,17 +289,17 @@ class GenerarLlave(CreateView):
         import random
         from django.core import serializers
 
-        if (USB_present(simulate=True, prob_ok=0.5)):
+        if (USB_present(simulate=False, prob_ok=0.5)):
             # Generamos un userId aleatorio de 10 dígitos
             userId = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
             form.instance.userId = userId
-            usbserial = userId
+            usbserial = getUSBSerial(simulate=False)
             form.instance.serial = usbserial
             user = self.write_user(form.instance)
 
             print(user)
             return super(GenerarLlave, self).form_valid(form)
         else:
-            form.add_error (None,'USB is not present')
+            form.add_error (None,'USB no insertado')
             return super(GenerarLlave, self).form_invalid(form)
 

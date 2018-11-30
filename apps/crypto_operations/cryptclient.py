@@ -25,7 +25,7 @@ def generate_RSA_files(bits=2048, code=_PASSPHRASE):
     return 
 
 
-def verify_sign(public_key_loc, signature, data_file):
+def verify_sign(public_key_loc, signature_file, data_file):
     '''
     Verifies with a public key from whom the data came that it was indeed 
     signed by their private key
@@ -37,13 +37,14 @@ def verify_sign(public_key_loc, signature, data_file):
     from Crypto.Signature import PKCS1_v1_5 
     from Crypto.Hash import SHA256 
     from base64 import b64decode 
+
     pub_key = open(public_key_loc, "r").read() 
     rsakey = RSA.importKey(pub_key) 
     signer = PKCS1_v1_5.new(rsakey) 
     digest = SHA256.new() 
     # Assumes the data is base64 encoded to begin with
     digest.update(b64decode(open(data_file).read())) 
-    if signer.verify(digest, b64decode(open(signature).read())):
+    if signer.verify(digest, b64decode(open(signature_file).read())):
         return True
     return False
 
@@ -76,11 +77,13 @@ def encrypt_RSA_text (pub_key_file, data_text, output_file):
     cipher = PKCS1_v1_5.new(pubkey)
     cipher_text = cipher.encrypt(str.encode(data_text))
     cipher_text = base64.b64encode(cipher_text)
+    #print("cifrado: ", cipher_text)
     f = open(output_file, 'wb')
     f.write(cipher_text)
     f.close()
 
-def decrypt_RSA_file (priv_key_file, data_file, passphrase):
+
+def decrypt_RSA_file (priv_key_file, data_file, passphrase=_PASSPHRASE):
     import base64
     import sys
 
@@ -98,19 +101,20 @@ def decrypt_RSA_file (priv_key_file, data_file, passphrase):
 	
     # decrypt
     plain_text = cipher.decrypt(cipher_text, None)
-    print(plain_text.decode('utf-8').strip())
+    #print(plain_text.decode('utf-8').strip())
     #f = open(output_file, 'wb')
     #f.write(plain_text.decode('utf-8').strip())
     #f.close()
     #with open(output_file, 'wb') as f: f.write(plain_text.decode('utf-8').strip())
-    print("texto: ", plain_text)
+    #print("texto: ", plain_text)
     return plain_text.decode('utf-8').strip()
 
 
-def sign_file (priv_key_file, file_to_sign, passphrase):
+def sign_file (priv_key_file, file_to_sign, passphrase=_PASSPHRASE):
     from Crypto.PublicKey import RSA
     from Crypto.Signature import PKCS1_v1_5
     from Crypto.Hash import SHA256
+    import base64
 
     privkey = RSA.importKey(open(priv_key_file).read(), passphrase=passphrase)
     signer = PKCS1_v1_5.new(privkey)
@@ -119,5 +123,4 @@ def sign_file (priv_key_file, file_to_sign, passphrase):
     sign = signer.sign(digest)
 
     with open(file_to_sign + '.sha256', 'wb') as f: f.write(base64.b64encode(sign))
-
 
