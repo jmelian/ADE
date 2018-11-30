@@ -5,6 +5,8 @@ from django.urls import reverse, reverse_lazy, resolve
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from apps.reglas.forms import ReglasForm, ReglasCrispyForm, ReglasAsignacionForm
 from apps.reglas.models import Reglas
+from apps.usuarios.models import Usuarios
+
 
 def index(request):
     return render(request, "reglas/index.html")
@@ -90,4 +92,39 @@ class ReglasAssign(FormActionMixin, UpdateView):
     form_class = ReglasAsignacionForm
     template_name = 'reglas/reglas_asignacion.html'
     success_url = reverse_lazy('reglas:reglas_list')
+
+
+def generar_fichero_reglas(request):
+    from django.core import serializers
+    from django.conf import settings
+    import json
+    import configparser
+
+    BD = {}
+    BD["Rules"] = []
+    BD["Users"] = []
+    reglas = Reglas.objects.all().order_by('id')
+    usuarios = Usuarios.objects.all().order_by('userId')
+    for regla in reglas:
+        BD["Rules"].append({"Descripcion": regla.descripcion, "Content": regla.contenido, "ID": regla.id})
+    for usuario in usuarios:
+        user_rules = []
+        for user_rule in usuario.reglas_set.all():
+            user_rules.append({"id": user_rule.id}) 
+        BD["Users"].append({"ID": usuario.userId, "Name": usuario.nombre, "Apellidos": usuario.apellidos, "Email": usuario.email, "Serial": usuario.serial, "Rules": user_rules})
+    
+    # Obtencion de la configuración inicial del vehículo a través del archivo de configuracion 'configuracion.ini'
+    config_file = configparser.ConfigParser()
+    config_file.read(settings.VEHICLE_CONFIG_FILE)
+    for section in config_file.sections():
+        BD[section] = {}
+        for option in config_file.options(section):
+            BD[section][option] = config_file.get(section, option)
+    #print(json.dumps(BD, indent=4, sort_keys=True))
+    f = open(settings.BASE_DE_REGLAS, 'w')
+    f.write(json.dumps(BD, indent=4, sort_keys=True))
+    f.close()
+    return render(request, "inicio.html")
+
+
 

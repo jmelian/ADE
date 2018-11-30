@@ -175,6 +175,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 PRIVATE_KEY = 'keys/ADE_private.pem'
 PUBLIC_KEY = 'keys/ADE_public.pem'
 
+BASE_DE_REGLAS = 'ade_rules.json'
 VEHICLE_CONFIG_FILE = 'configuracion.ini'
 #USB_PATH = 'keys/user.test'
 USB_USER_FILE = '/media/usbkey/user.data'
