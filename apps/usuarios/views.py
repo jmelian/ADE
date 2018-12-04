@@ -16,6 +16,8 @@ import usb
 import logging
 
 from apps.crypto_operations import cryptclient
+from apps.logger import logger
+
 
 # Create your views here.
 logger = logging.getLogger(__name__)
@@ -264,6 +266,9 @@ class GenerarLlave(CreateView):
         context = super(GenerarLlave, self).get_context_data(**kwargs)
         usbserial = ""
         usbserial = getUSBSerial(simulate=True)
+        logger.error("Comprobando USB - error")
+        logger.debug("Comprobando USB - debug")
+        print("usb prsent")
 
         if not usbserial:
             context['msg'] = 'No ha introducido el USB o ha introducido uno no válido. Por favor, pruebe de nuevo'
@@ -274,7 +279,6 @@ class GenerarLlave(CreateView):
     def form_valid(self, form):
         import string
         import random
-        from django.core import serializers
 
         if (USB_present(simulate=True, prob_ok=0.5)):
             # Generamos un userId aleatorio de 10 dígitos

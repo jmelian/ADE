@@ -1,7 +1,9 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
 
 {% block content %}
+
 <h1 class="text-center border-bottom">Inserte el pendrive de usuario y pulse "Aceptar"</h1>
 
 <form method="post" action="{% url 'usuarios:usuarios_alta2' %}">
@@ -9,9 +11,11 @@
     <input type="hidden" id="check" name="check" value=True>
     <br>
     <br>
-    <button class="btn btn-success btn-block btn-lg" type="submit">Aceptar</button>
+    <button id="boton_aceptar" class="btn btn-success btn-block btn-lg" type="submit">Aceptar</button>
 </form>
+
 {% if msg %}
 {{msg}}
 {% endif %}
 {% endblock %}
+

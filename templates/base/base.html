@@ -9,13 +9,16 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
     <!-- Fontawesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <title>{% block title %} ADE: Administración de reglas {% endblock %}</title>
 
@@ -90,6 +93,7 @@
         crossorigin="anonymous"></script>
 <!-- Datatables JS -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+
 <script>
 <!--
 https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json
@@ -121,9 +125,24 @@ https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json
                 }
             }
         });
-
     } );
 </script>
+<script>
+$(document).ready(function() {
+  $('#boton_aceptar').on('click', function() {
+    var $this = $(this);
+    var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+    if ($(this).html() !== loadingText) {
+      $this.data('original-text', $(this).html());
+      $this.html(loadingText);
+    }
+    setTimeout(function() {
+      $this.html($this.data('original-text'));
+    }, 2000);
+  });
+})
+</script>
+
 
 </body>
 </html>

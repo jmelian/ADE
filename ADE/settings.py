@@ -177,3 +177,5 @@ PUBLIC_KEY = 'keys/javi.public.pem'
 
 VEHICLE_CONFIG_FILE = 'configuracion.ini'
 USB_PATH = 'keys/user.test'
+
+LOG_FILE = 'ADE.log'
