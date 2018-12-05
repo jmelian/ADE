@@ -9,13 +9,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
     <!-- Datatables -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <title>{% block title %} ADE: Administración de reglas {% endblock %}</title>
 
@@ -53,7 +55,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown_reglas">
                     <a class="dropdown-item" href="{% url 'reglas:reglas_list' %}">Listado de reglas</a>
-                    <a class="dropdown-item" href="{% url 'reglas:reglas_generarBD' %}">Generar base de datos de reglas</a>
+                    <a id="genBD" class="dropdown-item" href="#">Generar base de datos de reglas</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Sugerencias</a>
                 </div>
@@ -80,9 +82,10 @@
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -126,8 +129,32 @@ https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json
     } );
 </script>
 
-</body>
-</html>
+<!-- Botón "cargando..." -->
+<script>
+$(document).ready(function() {
+	$('#boton_aceptar').on('click', function() {
+		var $this = $(this);
+		var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+		if ($(this).html() !== loadingText) {
+			$this.html(loadingText);
+		}
+	});
+})
+</script>
+
+
+<!-- Mensaje de Generación de BD correcta -->
+<script>
+	$("#genBD").click(function () {
+		$.ajax({ 
+			url: '{% url "reglas:reglas_generarBD" %}', 
+			success: function () {
+				alert("BD Generada correctamente");
+			}
+		}); 
+	}); 
+</script>
+
 {% block extrajs %}
 {% endblock %}
 </body>

@@ -1,0 +1,87 @@
+{
+    "Rules": [
+        {
+            "Content": "users_ID(Z, User), users_Serial(Z, Serial)",
+            "Descripcion": "Autorizaci\u00f3n inicial",
+            "ID": 1
+        },
+        {
+            "Content": "date(Today), vehicle_ItvEnd(X), parse_time(X, Stamp), stamp_date_time(Stamp, D, 0), date_time_value(date, D, Date), Date @> Today",
+            "Descripcion": "Fecha ITV",
+            "ID": 2
+        },
+        {
+            "Content": "date(Today), day_of_the_week(Today,3); day_of_the_week(Today,5)\",\r\n            \"Description\": \"Restriccion de dias - Miercoles o viernes",
+            "Descripcion": "Restriccion de dias - Miercoles o viernes",
+            "ID": 3
+        }
+    ],
+    "Users": [
+        {
+            "Apellidos": "palotes",
+            "Email": "qqqawrg@fagg.com",
+            "ID": "1asad",
+            "Name": "Perico",
+            "Rules": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 3
+                }
+            ],
+            "Serial": "3141135214565"
+        },
+        {
+            "Apellidos": "Prueba Test",
+            "Email": "test@test.pru",
+            "ID": "3TY4DB6RP5",
+            "Name": "Pedro",
+            "Rules": [
+                {
+                    "id": 1
+                }
+            ],
+            "Serial": "4C530201640117121020"
+        },
+        {
+            "Apellidos": "Measd asda",
+            "Email": "adafa@asdf.es",
+            "ID": "88888",
+            "Name": "Javier",
+            "Rules": [
+                {
+                    "id": 1
+                },
+                {
+                    "id": 2
+                },
+                {
+                    "id": 3
+                }
+            ],
+            "Serial": "3453ASDB234G"
+        },
+        {
+            "Apellidos": "kk",
+            "Email": "kk@ll.es",
+            "ID": "C9MBU9AJLN",
+            "Name": "kk",
+            "Rules": [],
+            "Serial": "C9MBU9AJLN"
+        },
+        {
+            "Apellidos": "Melian",
+            "Email": "javimelian@gmail.com",
+            "ID": "QVTG5N3UGS",
+            "Name": "Javier",
+            "Rules": [],
+            "Serial": "QVTG5N3UGS"
+        }
+    ],
+    "VEHICULO": {
+        "id": "1234",
+        "itvend": "2019-12-30",
+        "plate": "2345FFF"
+    }
+}

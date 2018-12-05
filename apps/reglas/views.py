@@ -121,10 +121,11 @@ def generar_fichero_reglas(request):
         for option in config_file.options(section):
             BD[section][option] = config_file.get(section, option)
     #print(json.dumps(BD, indent=4, sort_keys=True))
+    # creamos el archivo donde ponemos el json con toda la información
     f = open(settings.BASE_DE_REGLAS, 'w')
     f.write(json.dumps(BD, indent=4, sort_keys=True))
     f.close()
-    return render(request, "inicio.html")
+    return HttpResponseRedirect(reverse_lazy('inicio'))
 
 
 
