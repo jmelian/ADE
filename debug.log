@@ -5686,3 +5686,555 @@ DEBUG 2018-12-05 14:15:28,359 utils (0.000) SELECT "reglas_reglas"."id", "reglas
 INFO 2018-12-05 14:15:28,368 basehttp "GET /reglas/generarBD/ HTTP/1.1" 302 0
 DEBUG 2018-12-05 14:15:28,392 utils (0.002) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
 INFO 2018-12-05 14:15:28,413 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 10:17:25,037 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:17:25,040 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:18:00,753 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 10:18:00,789 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 10:18:01,891 base Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 111, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/urls/resolvers.py", line 520, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>], [<URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>], [<URLPattern '' [name='inicio']>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <URLPattern list> (admin:admin) 'admin/'>
+DEBUG 2018-12-07 10:18:01,901 base Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 111, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/urls/resolvers.py", line 520, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>], [<URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>], [<URLPattern '' [name='inicio']>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>
+DEBUG 2018-12-07 10:18:01,903 base Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 111, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/urls/resolvers.py", line 520, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>], [<URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>], [<URLPattern '' [name='inicio']>]], 'path': 'favicon.ico'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>
+WARNING 2018-12-07 10:18:01,905 log Not Found: /favicon.ico
+WARNING 2018-12-07 10:18:01,906 basehttp "GET /favicon.ico HTTP/1.1" 404 2300
+DEBUG 2018-12-07 10:18:15,742 base Exception while resolving variable 'msg' in template 'usuarios/usuarios_alta1.html'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'msg'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 835, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(type(current), bit):
+AttributeError: type object 'RequestContext' has no attribute 'msg'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'msg'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [msg] in [{'True': True, 'False': False, 'None': None}, {'csrf_token': <SimpleLazyObject: 'BpkoW1hwdkm534iWMd5veBye6gv4JXpcS0dvxfRYpTjFKHATOTqBsDDJFPep61GM'>, 'request': <WSGIRequest: GET '/usuarios/alta'>, 'user': <SimpleLazyObject: <function AuthenticationMiddleware.process_request.<locals>.<lambda> at 0x10ddc2ae8>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x10dd85a58>, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x10dd79128>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'SUCCESS': 25, 'WARNING': 30, 'ERROR': 40}}, {}, {'block': <Block Node: content. Contents: [<TextNode: '\n<h1 class="text-center b'>, <django.template.defaulttags.URLNode object at 0x10dd85b00>, <TextNode: '">\n    '>, <django.template.defaulttags.CsrfTokenNode object at 0x10dd85940>, <TextNode: '\n    <input type="hidden"'>, <IfNode>, <TextNode: '\n'>]>}]
+INFO 2018-12-07 10:18:15,746 basehttp "GET /usuarios/alta HTTP/1.1" 200 7240
+INFO 2018-12-07 10:18:17,837 basehttp "POST /usuarios/alta2 HTTP/1.1" 200 7293
+INFO 2018-12-07 10:18:26,876 basehttp "POST /usuarios/alta2 HTTP/1.1" 200 7293
+DEBUG 2018-12-07 10:23:29,954 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:23:29,956 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:23:32,537 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:23:32,539 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:48:01,150 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:48:01,152 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:48:17,948 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:48:17,950 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:48:22,582 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:48:22,584 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:48:57,764 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 10:48:57,766 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 10:49:16,998 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 10:49:17,017 basehttp "GET / HTTP/1.1" 200 8785
+INFO 2018-12-07 10:49:22,936 basehttp "GET /logs/test HTTP/1.1" 200 2
+DEBUG 2018-12-07 11:13:48,349 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:13:48,351 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+ERROR 2018-12-07 11:13:59,638 log Internal Server Error: /logs/test
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/danidiaz/develop/ADE/apps/adelog/views.py", line 8, in test
+    log.debug("TEST")
+  File "/Users/danidiaz/develop/ADE/apps/adelog/commons.py", line 26, in debug
+    self.write_log('DBG', message)
+  File "/Users/danidiaz/develop/ADE/apps/adelog/commons.py", line 18, in write_log
+    if app :
+NameError: name 'app' is not defined
+ERROR 2018-12-07 11:13:59,641 basehttp "GET /logs/test HTTP/1.1" 500 71762
+DEBUG 2018-12-07 11:14:17,475 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:14:17,477 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+ERROR 2018-12-07 11:14:36,338 log Internal Server Error: /logs/test
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/danidiaz/develop/ADE/apps/adelog/views.py", line 8, in test
+    log.debug("TEST")
+  File "/Users/danidiaz/develop/ADE/apps/adelog/commons.py", line 24, in debug
+    self.write_log('DBG', message)
+  File "/Users/danidiaz/develop/ADE/apps/adelog/commons.py", line 18, in write_log
+    f.write("[%lf][code]:>%s" % (time.time, code,message))
+TypeError: must be real number, not builtin_function_or_method
+ERROR 2018-12-07 11:14:36,340 basehttp "GET /logs/test HTTP/1.1" 500 71902
+DEBUG 2018-12-07 11:14:47,572 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:14:47,574 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+ERROR 2018-12-07 11:14:49,305 log Internal Server Error: /logs/test
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/danidiaz/develop/ADE/apps/adelog/views.py", line 8, in test
+    log.debug("TEST")
+  File "/Users/danidiaz/develop/ADE/apps/adelog/commons.py", line 24, in debug
+    self.write_log('DBG', message)
+  File "/Users/danidiaz/develop/ADE/apps/adelog/commons.py", line 18, in write_log
+    f.write("[%lf][code]:>%s" % (time.time(), code,message))
+TypeError: not all arguments converted during string formatting
+ERROR 2018-12-07 11:14:49,307 basehttp "GET /logs/test HTTP/1.1" 500 71912
+DEBUG 2018-12-07 11:14:59,559 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:14:59,561 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+INFO 2018-12-07 11:15:00,397 basehttp "GET /logs/test HTTP/1.1" 200 2
+DEBUG 2018-12-07 11:16:13,476 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:16:13,478 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:16:26,218 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:16:26,220 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+INFO 2018-12-07 11:16:34,698 basehttp "GET /logs/test HTTP/1.1" 200 2
+DEBUG 2018-12-07 11:17:40,364 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:17:40,389 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 11:17:51,275 utils (0.001) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" ORDER BY "reglas_reglas"."id" ASC; args=()
+DEBUG 2018-12-07 11:17:51,278 utils (0.000) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" ORDER BY "usuarios_usuarios"."userId" ASC; args=()
+DEBUG 2018-12-07 11:17:51,281 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '1asad'; args=('1asad',)
+DEBUG 2018-12-07 11:17:51,283 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '3TY4DB6RP5'; args=('3TY4DB6RP5',)
+DEBUG 2018-12-07 11:17:51,284 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '88888'; args=('88888',)
+DEBUG 2018-12-07 11:17:51,286 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = 'C9MBU9AJLN'; args=('C9MBU9AJLN',)
+DEBUG 2018-12-07 11:17:51,287 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = 'QVTG5N3UGS'; args=('QVTG5N3UGS',)
+INFO 2018-12-07 11:17:51,290 basehttp "GET /reglas/generarBD/ HTTP/1.1" 302 0
+DEBUG 2018-12-07 11:17:51,300 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:17:51,309 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 11:18:36,605 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:18:36,612 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 11:21:24,617 utils (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:21:24,619 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:21:43,481 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:21:43,483 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:22:07,424 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:22:07,426 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:22:31,862 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:22:31,864 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:22:34,462 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:22:34,464 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:22:46,230 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:22:46,232 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:22:57,841 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:22:57,865 basehttp "GET / HTTP/1.1" 200 8785
+ERROR 2018-12-07 11:23:05,838 log Internal Server Error: /reglas/generarBD/
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/danidiaz/develop/ADE/apps/reglas/views.py", line 102, in generar_fichero_reglas
+    from apps.adelog.commos import Log
+ModuleNotFoundError: No module named 'apps.adelog.commos'
+ERROR 2018-12-07 11:23:05,840 basehttp "GET /reglas/generarBD/ HTTP/1.1" 500 14688
+DEBUG 2018-12-07 11:23:26,765 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:23:26,768 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:23:29,020 utils (0.001) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" ORDER BY "reglas_reglas"."id" ASC; args=()
+DEBUG 2018-12-07 11:23:29,022 utils (0.000) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" ORDER BY "usuarios_usuarios"."userId" ASC; args=()
+DEBUG 2018-12-07 11:23:29,024 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '1asad'; args=('1asad',)
+DEBUG 2018-12-07 11:23:29,027 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '3TY4DB6RP5'; args=('3TY4DB6RP5',)
+DEBUG 2018-12-07 11:23:29,030 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '88888'; args=('88888',)
+DEBUG 2018-12-07 11:23:29,034 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = 'C9MBU9AJLN'; args=('C9MBU9AJLN',)
+DEBUG 2018-12-07 11:23:29,038 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = 'QVTG5N3UGS'; args=('QVTG5N3UGS',)
+INFO 2018-12-07 11:23:29,047 basehttp "GET /reglas/generarBD/ HTTP/1.1" 302 0
+DEBUG 2018-12-07 11:23:29,060 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:23:29,071 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 11:24:16,926 base Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 111, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/urls/resolvers.py", line 520, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern '' [name='index']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'nueva/' [name='reglas_crear']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'listar/' [name='reglas_list']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'editar/<int:pk>/' [name='reglas_edit']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'borrar/<int:id_regla>/' [name='reglas_delete']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'asignar/<int:pk>/' [name='reglas_asignar']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'generarBD/' [name='reglas_generarBD']>], [<URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>], [<URLResolver <module 'apps.adelog.urls' from '/Users/danidiaz/develop/ADE/apps/adelog/urls.py'> (adelog:logs) 'logs/'>], [<URLPattern '' [name='inicio']>]], 'path': 'reglas/generarDB/'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <URLPattern list> (admin:admin) 'admin/'>
+DEBUG 2018-12-07 11:24:16,932 base Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 111, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/urls/resolvers.py", line 520, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern '' [name='index']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'nueva/' [name='reglas_crear']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'listar/' [name='reglas_list']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'editar/<int:pk>/' [name='reglas_edit']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'borrar/<int:id_regla>/' [name='reglas_delete']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'asignar/<int:pk>/' [name='reglas_asignar']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'generarBD/' [name='reglas_generarBD']>], [<URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>], [<URLResolver <module 'apps.adelog.urls' from '/Users/danidiaz/develop/ADE/apps/adelog/urls.py'> (adelog:logs) 'logs/'>], [<URLPattern '' [name='inicio']>]], 'path': 'reglas/generarDB/'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>
+DEBUG 2018-12-07 11:24:16,933 base Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 111, in _get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/urls/resolvers.py", line 520, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.urls.exceptions.Resolver404: {'tried': [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern '' [name='index']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'nueva/' [name='reglas_crear']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'listar/' [name='reglas_list']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'editar/<int:pk>/' [name='reglas_edit']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'borrar/<int:id_regla>/' [name='reglas_delete']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'asignar/<int:pk>/' [name='reglas_asignar']>], [<URLResolver <module 'apps.reglas.urls' from '/Users/danidiaz/develop/ADE/apps/reglas/urls.py'> (reglas:reglas) 'reglas/'>, <URLPattern 'generarBD/' [name='reglas_generarBD']>], [<URLResolver <module 'apps.usuarios.urls' from '/Users/danidiaz/develop/ADE/apps/usuarios/urls.py'> (usuarios:usuarios) 'usuarios/'>], [<URLResolver <module 'apps.adelog.urls' from '/Users/danidiaz/develop/ADE/apps/adelog/urls.py'> (adelog:logs) 'logs/'>], [<URLPattern '' [name='inicio']>]], 'path': 'reglas/generarDB/'}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+TypeError: 'URLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'URLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/template/base.py", line 850, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in <URLResolver <module 'apps.adelog.urls' from '/Users/danidiaz/develop/ADE/apps/adelog/urls.py'> (adelog:logs) 'logs/'>
+WARNING 2018-12-07 11:24:16,934 log Not Found: /reglas/generarDB/
+WARNING 2018-12-07 11:24:16,935 basehttp "GET /reglas/generarDB/ HTTP/1.1" 404 3635
+ERROR 2018-12-07 11:24:22,793 log Internal Server Error: /reglas/generarBD/
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/danidiaz/develop/ADE/apps/reglas/views.py", line 105, in generar_fichero_reglas
+    log.debug(request.META['HTTP_REFERER'], 'reglas')
+KeyError: 'HTTP_REFERER'
+ERROR 2018-12-07 11:24:22,794 basehttp "GET /reglas/generarBD/ HTTP/1.1" 500 66178
+DEBUG 2018-12-07 11:25:39,862 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:25:39,865 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:26:10,948 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:26:10,950 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:26:38,971 utils (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:26:38,973 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:26:49,710 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:26:49,712 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:26:59,513 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:26:59,515 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:27:27,578 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:27:27,581 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:27:30,165 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:27:30,167 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+INFO 2018-12-07 11:28:16,710 basehttp "GET /reglas/generarBD/ HTTP/1.1" 302 0
+DEBUG 2018-12-07 11:28:16,725 utils (0.000) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:28:16,734 basehttp "GET / HTTP/1.1" 200 8785
+DEBUG 2018-12-07 11:28:59,335 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:28:59,337 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:29:03,966 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:29:03,968 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:29:12,663 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:29:12,665 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG 2018-12-07 11:29:18,779 utils (0.001) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" ORDER BY "reglas_reglas"."id" ASC; args=()
+DEBUG 2018-12-07 11:29:18,783 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" ORDER BY "usuarios_usuarios"."userId" ASC; args=()
+DEBUG 2018-12-07 11:29:18,789 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '1asad'; args=('1asad',)
+DEBUG 2018-12-07 11:29:18,792 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '3TY4DB6RP5'; args=('3TY4DB6RP5',)
+DEBUG 2018-12-07 11:29:18,794 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = '88888'; args=('88888',)
+DEBUG 2018-12-07 11:29:18,796 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = 'C9MBU9AJLN'; args=('C9MBU9AJLN',)
+DEBUG 2018-12-07 11:29:18,797 utils (0.000) SELECT "reglas_reglas"."id", "reglas_reglas"."contenido", "reglas_reglas"."descripcion", "reglas_reglas"."fechaCreacion", "reglas_reglas"."fechaModificacion" FROM "reglas_reglas" INNER JOIN "reglas_reglas_usuarios" ON ("reglas_reglas"."id" = "reglas_reglas_usuarios"."reglas_id") WHERE "reglas_reglas_usuarios"."usuarios_id" = 'QVTG5N3UGS'; args=('QVTG5N3UGS',)
+INFO 2018-12-07 11:29:18,807 basehttp "GET /reglas/generarBD/ HTTP/1.1" 302 0
+DEBUG 2018-12-07 11:29:18,821 utils (0.000) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:29:18,831 basehttp "GET / HTTP/1.1" 200 8785
+ERROR 2018-12-07 11:29:29,649 log Internal Server Error: /reglas/generarBD/
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/ADE/apps/reglas/views.py", line 105, in generar_fichero_reglas
+    frompage =request.META['HTTP_REFERER']
+KeyError: 'HTTP_REFERER'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/danidiaz/develop/env/ADE/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/danidiaz/develop/ADE/apps/reglas/views.py", line 136, in generar_fichero_reglas
+    log.error("Access not allowed", "reglas")
+UnboundLocalError: local variable 'log' referenced before assignment
+ERROR 2018-12-07 11:29:29,651 basehttp "GET /reglas/generarBD/ HTTP/1.1" 500 71066
+DEBUG 2018-12-07 11:29:40,866 utils (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG 2018-12-07 11:29:40,869 utils (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+INFO 2018-12-07 11:29:42,924 basehttp "GET /reglas/generarBD/ HTTP/1.1" 302 0
+DEBUG 2018-12-07 11:29:42,946 utils (0.001) SELECT "usuarios_usuarios"."userId", "usuarios_usuarios"."nombre", "usuarios_usuarios"."apellidos", "usuarios_usuarios"."edad", "usuarios_usuarios"."telefono", "usuarios_usuarios"."email", "usuarios_usuarios"."serial", "usuarios_usuarios"."admin", "usuarios_usuarios"."fechaCreacion", "usuarios_usuarios"."fechaModificacion" FROM "usuarios_usuarios" WHERE "usuarios_usuarios"."admin" = 1; args=(True,)
+INFO 2018-12-07 11:29:42,961 basehttp "GET / HTTP/1.1" 200 8785

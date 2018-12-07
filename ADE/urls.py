@@ -24,5 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('reglas/', include(('apps.reglas.urls', 'reglas'), namespace='reglas')),
     path('usuarios/', include(('apps.usuarios.urls', 'usuarios'), namespace='usuarios')),
+    path('logs/', include(('apps.adelog.urls', 'adelog'), namespace='logs')),
     path('', inicio, name='inicio'),
 ]

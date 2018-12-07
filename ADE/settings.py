@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #local apps
     'apps.usuarios',
     'apps.reglas',
+    'apps.adelog',
 ]
 
 MIDDLEWARE = [

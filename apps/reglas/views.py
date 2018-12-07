@@ -99,33 +99,39 @@ def generar_fichero_reglas(request):
     from django.conf import settings
     import json
     import configparser
+    from apps.adelog.commons import Log, show_exc
 
-    BD = {}
-    BD["Rules"] = []
-    BD["Users"] = []
-    reglas = Reglas.objects.all().order_by('id')
-    usuarios = Usuarios.objects.all().order_by('userId')
-    for regla in reglas:
-        BD["Rules"].append({"Descripcion": regla.descripcion, "Content": regla.contenido, "ID": regla.id})
-    for usuario in usuarios:
-        user_rules = []
-        for user_rule in usuario.reglas_set.all():
-            user_rules.append({"id": user_rule.id}) 
-        BD["Users"].append({"ID": usuario.userId, "Name": usuario.nombre, "Apellidos": usuario.apellidos, "Email": usuario.email, "Serial": usuario.serial, "Rules": user_rules})
-    
-    # Obtencion de la configuración inicial del vehículo a través del archivo de configuracion 'configuracion.ini'
-    config_file = configparser.ConfigParser()
-    config_file.read(settings.VEHICLE_CONFIG_FILE)
-    for section in config_file.sections():
-        BD[section] = {}
-        for option in config_file.options(section):
-            BD[section][option] = config_file.get(section, option)
-    #print(json.dumps(BD, indent=4, sort_keys=True))
-    # creamos el archivo donde ponemos el json con toda la información
-    f = open(settings.BASE_DE_REGLAS, 'w')
-    f.write(json.dumps(BD, indent=4, sort_keys=True))
-    f.close()
-    return HttpResponseRedirect(reverse_lazy('inicio'))
-
-
-
+    log = Log()
+    try:
+        frompage =request.META['HTTP_REFERER']
+        log.debug("You are accessing from %s" % frompage, 'reglas')
+        BD = {}
+        BD["Rules"] = []
+        BD["Users"] = []
+        reglas = Reglas.objects.all().order_by('id')
+        usuarios = Usuarios.objects.all().order_by('userId')
+        for regla in reglas:
+            BD["Rules"].append({"Descripcion": regla.descripcion, "Content": regla.contenido, "ID": regla.id})
+        for usuario in usuarios:
+            user_rules = []
+            for user_rule in usuario.reglas_set.all():
+                user_rules.append({"id": user_rule.id}) 
+            BD["Users"].append({"ID": usuario.userId, "Name": usuario.nombre, "Apellidos": usuario.apellidos, "Email": usuario.email, "Serial": usuario.serial, "Rules": user_rules})
+        
+        # Obtencion de la configuración inicial del vehículo a través del archivo de configuracion 'configuracion.ini'
+        config_file = configparser.ConfigParser()
+        config_file.read(settings.VEHICLE_CONFIG_FILE)
+        for section in config_file.sections():
+            BD[section] = {}
+            for option in config_file.options(section):
+                BD[section][option] = config_file.get(section, option)
+        #print(json.dumps(BD, indent=4, sort_keys=True))
+        # creamos el archivo donde ponemos el json con toda la información
+        f = open(settings.BASE_DE_REGLAS, 'w')
+        f.write(json.dumps(BD, indent=4, sort_keys=True))
+        f.close()
+        return HttpResponseRedirect(reverse_lazy('inicio'))
+    except Exception as e:
+        show_exc(e)
+        log.error("Access not allowed", "reglas")
+        return (redirect(reverse('inicio')))
